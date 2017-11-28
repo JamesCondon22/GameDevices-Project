@@ -3,7 +3,7 @@
  * C00207200
  * The game scene class which is a child of the scene class
  */
-class GameScene extends Scene
+class MenuScene extends Scene
 {
 /**
   * @param {title} string title of the MenuScene.
@@ -12,6 +12,7 @@ class GameScene extends Scene
   constructor(title)
   {
     super(title);
+    gameNs.playing = false;
   }
 /**
   * creates a canvas and context
@@ -23,10 +24,9 @@ class GameScene extends Scene
     var canvas = document.createElement("mycanvas");
     var ctx = mycanvas.getContext("2d");
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
-    document.body.style.background = "#1C8200";
+    document.body.style.background = "#0C8100";
     ctx.font = '65px Corbel';
     ctx.fillText(this.title, 10, 50);
-
   }
 
 

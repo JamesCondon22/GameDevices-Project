@@ -20,6 +20,7 @@ class SceneManager
     this.titles = [];
     this.index = -1;
     this.numOfScenes = -1
+    gameNs.scenetitle = null
   }
 
 /**
@@ -33,7 +34,7 @@ class SceneManager
     this.titles.push(scene.title);
     this.numOfScenes++;
     this.dictionary[this.numOfScenes] =scene;
-
+    this.scenetitle = scene.title;
   }
   /**
    * @param {title} string the scene title
@@ -52,6 +53,7 @@ class SceneManager
     }
 
     this.currentScene = this.dictionary[this.index];
+
   }
   /**
    * goes to the next scene
@@ -68,7 +70,7 @@ class SceneManager
     }
 
     this.currentScene = this.dictionary[this.index];
-
+    //console.log(  this.currentScene )
   }
 
   /**
@@ -77,9 +79,14 @@ class SceneManager
    */
   render()
   {
-    console.log(this.currentScene);
   //  var curScene = this.dictionary[this.index];
     this.currentScene.render();
+    gameNs.scenetitle = this.titles[this.index]
+  }
+
+  getScene()
+  {
+    return gameNs.scenetitle
   }
 
 

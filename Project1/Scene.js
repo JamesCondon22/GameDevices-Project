@@ -31,12 +31,7 @@ class Scene
     */
   render()
   {
-    var canvas = document.createElement("mycanvas");
-    var ctx = mycanvas.getContext("2d");
-    document.body.style.background = "#800";
-    ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
-    ctx.font = '48px serif';
-    ctx.fillText(this.title, 10, 50);
+    
 
   }
 }
