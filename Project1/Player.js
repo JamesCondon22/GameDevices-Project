@@ -42,19 +42,19 @@ class Player
 
    moveRight()
    {
-     if (gameNs.x > gameNs.endX)
+     if (gameNs.x + 50> gameNs.endX)
      {
           gameNs.x -= 5;
      }
-     if (gameNs.x < gameNs.endX)
+     if (gameNs.x + 50< gameNs.endX )
      {
           gameNs.x += 5;
      }
-     if (gameNs.y > gameNs.endY)
+     if (gameNs.y  + 50> gameNs.endY )
      {
          gameNs.y -= 5;
      }
-     if (gameNs.y < gameNs.endY)
+     if (gameNs.y + 50< gameNs.endY )
      {
         gameNs.y += 5;
 
