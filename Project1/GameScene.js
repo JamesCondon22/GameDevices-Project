@@ -3,7 +3,7 @@
  * C00207200
  * The game scene class which is a child of the scene class
  */
-class GameScene extends Scene
+class GameScene
 {
 /**
    * @param {title} string title of the MenuScene.
@@ -11,7 +11,7 @@ class GameScene extends Scene
    */
   constructor(title)
   {
-    super(title);
+    this.title = title
     this.player = new Player(0,250, 100,100);
     gameNs.playing = true;
     gameNs.move = false
@@ -38,7 +38,6 @@ class GameScene extends Scene
       this.player.moveRight();
     }
     this.render();
-    console.log(this.move)
 		window.requestAnimationFrame(gameNs.game.update);
   }
 /**

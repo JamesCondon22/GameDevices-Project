@@ -4,7 +4,7 @@
  * The title scene class which is a child of the scene class
  */
 
-class TitleScene extends Scene
+class TitleScene
 {
 /**
   * @param {title} string title of the MenuScene.
@@ -12,7 +12,7 @@ class TitleScene extends Scene
   */
   constructor(title)
   {
-    super(title);
+    this.title = title
     gameNs.playing = false;
   }
 

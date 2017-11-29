@@ -44,19 +44,19 @@ class Player
    {
      if (gameNs.x + 50> gameNs.endX)
      {
-          gameNs.x -= 5;
+          gameNs.x -= 2;
      }
      if (gameNs.x + 50< gameNs.endX )
      {
-          gameNs.x += 5;
+          gameNs.x += 2;
      }
      if (gameNs.y  + 50> gameNs.endY )
      {
-         gameNs.y -= 5;
+         gameNs.y -= 2;
      }
      if (gameNs.y + 50< gameNs.endY )
      {
-        gameNs.y += 5;
+        gameNs.y += 2;
 
      }
 

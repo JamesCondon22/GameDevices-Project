@@ -63,7 +63,7 @@ function initCanvas()
 function update(sceneManager)
 {
 
-  gameNs.game.update();
+  //gameNs.game.update();
 
 
 }

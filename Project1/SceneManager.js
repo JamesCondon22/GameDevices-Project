@@ -68,7 +68,11 @@ class SceneManager
     {
       this.index = 0;
     }
-
+    if (this.index == 2)
+    {
+      //var item = document.getElementById("div");
+      //item.parentNode.removeChild(item);
+    }
     this.currentScene = this.dictionary[this.index];
     //console.log(  this.currentScene )
   }
