@@ -13,9 +13,7 @@ class MenuScene
   {
     this.title = title
     gameNs.playing = false;
-    this.createDiv('divId')
-    this.createDiv2('divId2')
-    this.createDiv3('divId3')
+
   }
 
   createDiv(divId)
@@ -28,19 +26,19 @@ class MenuScene
   }
   createDiv2(divId2)
   {
-    gameNs.div = document.createElement("div2");
-	  gameNs.div.id = divId2;
-	  gameNs.div.innerHTML = '<img src=\'resources/buttonSpriteOptions.png\'>';
+    gameNs.div2 = document.createElement("div2");
+	  gameNs.div2.id = divId2;
+	  gameNs.div2.innerHTML = '<img src=\'resources/buttonSpriteOptions.png\'>';
 	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(gameNs.div);
+	  document.body.appendChild(gameNs.div2);
   }
   createDiv3(divId3)
   {
-    gameNs.div = document.createElement("div3");
-	  gameNs.div.id = divId3;
-	  gameNs.div.innerHTML = '<img src=\'resources/buttonSpriteExit.png\'>';
+    gameNs.div3 = document.createElement("div3");
+	  gameNs.div3.id = divId3;
+	  gameNs.div3.innerHTML = '<img src=\'resources/buttonSpriteExit.png\'>';
 	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(gameNs.div);
+	  document.body.appendChild(gameNs.div3);
   }
 /**
   * creates a canvas and context

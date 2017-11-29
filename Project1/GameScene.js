@@ -38,7 +38,7 @@ class GameScene
       this.player.moveRight();
     }
     this.render();
-		window.requestAnimationFrame(gameNs.game.update);
+
   }
 /**
   * creates a canvas and context

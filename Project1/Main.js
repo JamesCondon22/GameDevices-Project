@@ -17,7 +17,9 @@ function main()
   var main = new MenuScene('Main Scene');
   var game = new GameScene('Game Scene');
   var sceneManager = new SceneManager();
-
+  gameNs.sceneManager = sceneManager
+  gameNs.created = false
+  gameNs.main = main
   gameNs.game = game;
   gameNs.game.initWorld();
 
@@ -63,9 +65,20 @@ function initCanvas()
 function update(sceneManager)
 {
 
-  //gameNs.game.update();
+  if (gameNs.sceneManager.getScene() == "Game Scene")
+  {
+    gameNs.created = false
+    gameNs.game.update()
+  }
+  if (gameNs.sceneManager.getScene() == "Main Scene" && gameNs.created === false)
+  {
+    gameNs.main.createDiv("divId")
+    gameNs.main.createDiv2("divId2")
+    gameNs.main.createDiv3("divId3")
+    gameNs.created = true
+  }
 
-
+  window.requestAnimationFrame(this.update);
 }
 /**
   * @param {sceneManager} object object of type SceneManager.
@@ -74,6 +87,7 @@ function update(sceneManager)
 function draw(sceneManager)
 {
   sceneManager.render();
+
 }
 /**
   * @param {sceneManager} object object of type SceneManager
@@ -83,6 +97,7 @@ function draw(sceneManager)
 function clickHandler(sceneManager, e)
 {
   //cycles to the next scene in the list
+
   sceneManager.goToNextScene();
   sceneManager.render();
 }

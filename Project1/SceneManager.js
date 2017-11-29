@@ -70,9 +70,15 @@ class SceneManager
     }
     if (this.index == 2)
     {
-      //var item = document.getElementById("div");
-      //item.parentNode.removeChild(item);
+      var item = document.getElementById("divId");
+      item.parentNode.removeChild(item);
+      var item2 = document.getElementById("divId2");
+      item2.parentNode.removeChild(item2);
+      var item3 = document.getElementById("divId3");
+      item3.parentNode.removeChild(item3);
+
     }
+
     this.currentScene = this.dictionary[this.index];
     //console.log(  this.currentScene )
   }
@@ -90,7 +96,7 @@ class SceneManager
 
   getScene()
   {
-    return gameNs.scenetitle
+     return gameNs.scenetitle
   }
 
 
