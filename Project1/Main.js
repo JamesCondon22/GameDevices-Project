@@ -75,10 +75,14 @@ function update(sceneManager)
   if (gameNs.sceneManager.getScene() == "Game Scene" && gameNs.createdGame == false)
   {
     gameNs.created = false
-    gameNs.game.createDiv4("divId4")
-    gameNs.game.createDiv5("divId5")
-    gameNs.game.createDiv6("divId6")
-    gameNs.game.createDiv7("divId7")
+    gameNs.game.createDiv10("divId")
+    gameNs.game.createDiv4("divId")
+    gameNs.game.createDiv5("divId")
+    gameNs.game.createDiv6("divId")
+    gameNs.game.createDiv7("divId")
+    gameNs.game.createDiv8("divId")
+    gameNs.game.createDiv9("divId")
+
     gameNs.createdGame = true
     gameNs.playing = true
   }

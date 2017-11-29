@@ -37,30 +37,38 @@ class Player
      var ctx = canvas.getContext('2d');
      ctx.fillRect(gameNs.x, gameNs.y, this.width,this.height);
 
-}
+   }
 
 
    moveRight()
    {
-     if (gameNs.x + 50> gameNs.endX)
+     if (gameNs.x > gameNs.endX)
      {
-          gameNs.x -= 5;
+          gameNs.x -= 3;
      }
-     if (gameNs.x + 50< gameNs.endX )
+     if (gameNs.x< gameNs.endX )
      {
-          gameNs.x += 5;
+          gameNs.x += 3;
      }
-     if (gameNs.y  + 50> gameNs.endY )
+     if (gameNs.y> gameNs.endY )
      {
-         gameNs.y -= 5;
+         gameNs.y -= 3;
      }
-     if (gameNs.y + 50< gameNs.endY )
+     if (gameNs.y< gameNs.endY )
      {
-        gameNs.y += 5;
+        gameNs.y += 3;
 
      }
+
+     if (gameNs.x > gameNs.endX - 5 && gameNs.x < gameNs.endX + 5
+     && gameNs.y > gameNs.endY - 5 && gameNs.y < gameNs.endY + 5)
+     {
+       gameNs.move = false;
+     }
+
 
    }
+   
 
 
  }

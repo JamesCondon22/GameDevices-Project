@@ -12,9 +12,20 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    this.player = new Player(0,250, 100,100);
+    this.player = new Player(0,250, 20,20);
+    gameNs.customer = new Customer(0,700,20,20)
     gameNs.playing = true;
     gameNs.move = false
+  }
+  createDiv10(divId10)
+  {
+    var div = document.createElement("div");
+	  div.id = divId10;
+	  //div.innerHTML = '<img src=\'resources/floor.jpg\'>';
+    div.style.position = "absolute";
+    div.style.left = 0 + "px";
+    div.style.top = 0 + "px";
+	  document.body.appendChild(div);
   }
 
   createDiv4(divId4)
@@ -25,6 +36,7 @@ class GameScene
     div.style.position = "absolute";
     div.style.left = 100 + "px";
     div.style.top = 300 + "px";
+    div.addEventListener("touchstart", this.movePlayer);
 	  //gameNs.div4.addEventListener("touchstart", this.changeScene);
 	  document.body.appendChild(div);
   }
@@ -36,8 +48,8 @@ class GameScene
      div.style.position = "absolute";
      div.style.left = 100 + "px";
      div.style.top = 500 + "px";
-	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(div);
+	   div.addEventListener("touchstart", this.movePlayer);
+	   document.body.appendChild(div);
   }
   createDiv6(divId6)
   {
@@ -47,6 +59,7 @@ class GameScene
     div.style.position = "absolute";
     div.style.left = 300 + "px";
     div.style.top = 500 + "px";
+    div.addEventListener("touchstart", this.movePlayer);
    //div.addEventListener("touchstart", playAudio);
    document.body.appendChild(div);
   }
@@ -58,8 +71,35 @@ class GameScene
     div.style.position = "absolute";
     div.style.left = 300 + "px";
     div.style.top = 300 + "px";
+    div.addEventListener("touchstart", this.movePlayer);
    //div.addEventListener("touchstart", playAudio);
    document.body.appendChild(div);
+  }
+  createDiv8(divId8)
+  {
+    var div = document.createElement("div");
+    div.id = divId8;
+    div.innerHTML = '<img src=\'resources/longTable.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 25 + "px";
+    div.style.top = 100 + "px";
+   div.addEventListener("touchstart", this.movePlayer);
+   document.body.appendChild(div);
+  }
+  createDiv9(divId9)
+  {
+    var div = document.createElement("div");
+    div.id = divId9;
+    div.innerHTML = '<img src=\'resources/longTable.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 275 + "px";
+    div.style.top = 100 + "px";
+   div.addEventListener("touchstart", this.movePlayer);
+   document.body.appendChild(div);
+  }
+  movePlayer(e){
+    console.log("touching")
+    gameNs.move = true
   }
 
   initWorld()
@@ -67,7 +107,7 @@ class GameScene
     console.log("Initialising Game World");
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
     document.addEventListener("touchstart", this.onTouchStart, false);
-    document.addEventListener("touchmove", this.onTouchMove, false);
+    document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
 
@@ -76,13 +116,14 @@ class GameScene
 
   update()
   {
-
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
     if (gameNs.move === true)
     {
       this.player.moveRight();
     }
+
+
     this.render();
 
   }
@@ -99,8 +140,8 @@ class GameScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
     this.player.render();
+    gameNs.customer.render()
     ctx.font = '55px Arial';
-    ctx.fillText(this.title, 10, 50);
 
 
   }
@@ -114,7 +155,7 @@ class GameScene
   }
   onTouchStart(e)
   {
-     gameNs.move = true
+
 	   this.touches = e.touches;
 	   gameNs.startX = this.touches[0].clientX;
 	   gameNs.startY = this.touches[0].clientY;
@@ -127,7 +168,11 @@ class GameScene
 
 	   gameNs.endX = this.touches[0].clientX;
 	   gameNs.endY = this.touches[0].clientY;
-
+     if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height)) {
+        // Assign new coordinates to our object
+        gameNs.px = gameNs.endX;
+        gameNs.py = gameNs.endY;
+      }
 	   gameNs.startX = this.touches[0].clientX;
 	   gameNs.startY = this.touches[0].clientY;
   }
@@ -138,5 +183,10 @@ class GameScene
 	   gameNs.endX = this.touches[0].clientX;
  	   gameNs.endY = this.touches[0].clientY;
 
+
   }
+
+
+
+
 }
