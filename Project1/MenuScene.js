@@ -18,28 +18,38 @@ class MenuScene
 
   createDiv(divId)
   {
-    gameNs.div = document.createElement("div");
-	  gameNs.div.id = divId;
-	  gameNs.div.innerHTML = '<img src=\'resources/buttonSpritePlay.png\'>';
-	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(gameNs.div);
+    var div = document.createElement("div");
+	  div.id = divId;
+	  div.innerHTML = '<img src=\'resources/buttonSpritePlay.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 100 + "px";
+    div.style.top = 100 + "px";
+	  document.body.appendChild(div);
   }
   createDiv2(divId2)
   {
-    gameNs.div2 = document.createElement("div2");
-	  gameNs.div2.id = divId2;
-	  gameNs.div2.innerHTML = '<img src=\'resources/buttonSpriteOptions.png\'>';
+    var div = document.createElement("div");
+	  div.id = divId2;
+	  div.innerHTML = '<img src=\'resources/buttonSpriteOptions.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 100 + "px";
+    div.style.top = 300 + "px";
 	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(gameNs.div2);
+	  document.body.appendChild(div);
   }
   createDiv3(divId3)
   {
-    gameNs.div3 = document.createElement("div3");
-	  gameNs.div3.id = divId3;
-	  gameNs.div3.innerHTML = '<img src=\'resources/buttonSpriteExit.png\'>';
+    var div = document.createElement("div");
+	  div.id = divId3;
+	  div.innerHTML = '<img src=\'resources/buttonSpriteExit.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 100 + "px";
+    div.style.top = 500 + "px";
 	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(gameNs.div3);
+	  document.body.appendChild(div);
   }
+
+
 /**
   * creates a canvas and context
   * changes the color of the background to green

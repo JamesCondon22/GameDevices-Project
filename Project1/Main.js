@@ -19,6 +19,9 @@ function main()
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
+  gameNs.createdGame = false
+  gameNs.pressed = false
+  gameNs.playing = false
   gameNs.main = main
   gameNs.game = game;
   gameNs.game.initWorld();
@@ -67,16 +70,28 @@ function update(sceneManager)
 
   if (gameNs.sceneManager.getScene() == "Game Scene")
   {
-    gameNs.created = false
     gameNs.game.update()
+  }
+  if (gameNs.sceneManager.getScene() == "Game Scene" && gameNs.createdGame == false)
+  {
+    gameNs.created = false
+    gameNs.game.createDiv4("divId4")
+    gameNs.game.createDiv5("divId5")
+    gameNs.game.createDiv6("divId6")
+    gameNs.game.createDiv7("divId7")
+    gameNs.createdGame = true
+    gameNs.playing = true
   }
   if (gameNs.sceneManager.getScene() == "Main Scene" && gameNs.created === false)
   {
+    gameNs.createdGame = false
     gameNs.main.createDiv("divId")
     gameNs.main.createDiv2("divId2")
     gameNs.main.createDiv3("divId3")
     gameNs.created = true
   }
+
+
 
   window.requestAnimationFrame(this.update);
 }
@@ -89,6 +104,11 @@ function draw(sceneManager)
   sceneManager.render();
 
 }
+
+function changeScene(e)
+{
+  console.log("touched")
+}
 /**
   * @param {sceneManager} object object of type SceneManager
   * @param {e} event mouse click event
@@ -96,8 +116,14 @@ function draw(sceneManager)
   */
 function clickHandler(sceneManager, e)
 {
-  //cycles to the next scene in the list
+  if (gameNs.playing == false)
+  {
+    sceneManager.goToNextScene()
+    sceneManager.render();
+  }
 
-  sceneManager.goToNextScene();
-  sceneManager.render();
+
+
+
+
 }

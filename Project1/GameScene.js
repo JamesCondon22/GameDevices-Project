@@ -17,6 +17,51 @@ class GameScene
     gameNs.move = false
   }
 
+  createDiv4(divId4)
+  {
+    var div = document.createElement("div");
+	  div.id = divId4;
+	  div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 100 + "px";
+    div.style.top = 300 + "px";
+	  //gameNs.div4.addEventListener("touchstart", this.changeScene);
+	  document.body.appendChild(div);
+  }
+  createDiv5(divId5)
+  {
+     var div = document.createElement("div");
+	   div.id = divId5;
+	   div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
+     div.style.position = "absolute";
+     div.style.left = 100 + "px";
+     div.style.top = 500 + "px";
+	  //div.addEventListener("touchstart", playAudio);
+	  document.body.appendChild(div);
+  }
+  createDiv6(divId6)
+  {
+    var div = document.createElement("div");
+    div.id = divId6;
+    div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 300 + "px";
+    div.style.top = 500 + "px";
+   //div.addEventListener("touchstart", playAudio);
+   document.body.appendChild(div);
+  }
+  createDiv7(divId7)
+  {
+    var div = document.createElement("div");
+    div.id = divId7;
+    div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
+    div.style.position = "absolute";
+    div.style.left = 300 + "px";
+    div.style.top = 300 + "px";
+   //div.addEventListener("touchstart", playAudio);
+   document.body.appendChild(div);
+  }
+
   initWorld()
   {
     console.log("Initialising Game World");
@@ -31,6 +76,7 @@ class GameScene
 
   update()
   {
+
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
     if (gameNs.move === true)
