@@ -12,91 +12,19 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    this.player = new Player(0,250, 20,20);
+    this.player = new Player(0,250, 60,100);
     gameNs.customer = new Customer(0,700,20,20)
+    gameNs.table = [4]
+    gameNs.table[0]= new Table(100,200,125,50);
+    gameNs.table[1]= new Table(300,200,125,50);
+    gameNs.table[2]= new Table(100,500,125,50);
+    gameNs.table[3]= new Table(300,500,125,50);
+    gameNs.service = new ServiceTable(25,50,200,50);
+    gameNs.washing = new CleaningTable(275,50,200,50);
     gameNs.playing = true;
     gameNs.move = false
   }
-  createDiv10(divId10)
-  {
-    var div = document.createElement("div");
-	  div.id = divId10;
-	  //div.innerHTML = '<img src=\'resources/floor.jpg\'>';
-    div.style.position = "absolute";
-    div.style.left = 0 + "px";
-    div.style.top = 0 + "px";
-	  document.body.appendChild(div);
-  }
 
-  createDiv4(divId4)
-  {
-    var div = document.createElement("div");
-	  div.id = divId4;
-	  div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 100 + "px";
-    div.style.top = 300 + "px";
-    div.addEventListener("touchstart", this.movePlayer);
-	  //gameNs.div4.addEventListener("touchstart", this.changeScene);
-	  document.body.appendChild(div);
-  }
-  createDiv5(divId5)
-  {
-     var div = document.createElement("div");
-	   div.id = divId5;
-	   div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
-     div.style.position = "absolute";
-     div.style.left = 100 + "px";
-     div.style.top = 500 + "px";
-	   div.addEventListener("touchstart", this.movePlayer);
-	   document.body.appendChild(div);
-  }
-  createDiv6(divId6)
-  {
-    var div = document.createElement("div");
-    div.id = divId6;
-    div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 300 + "px";
-    div.style.top = 500 + "px";
-    div.addEventListener("touchstart", this.movePlayer);
-   //div.addEventListener("touchstart", playAudio);
-   document.body.appendChild(div);
-  }
-  createDiv7(divId7)
-  {
-    var div = document.createElement("div");
-    div.id = divId7;
-    div.innerHTML = '<img src=\'resources/tableCustomer.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 300 + "px";
-    div.style.top = 300 + "px";
-    div.addEventListener("touchstart", this.movePlayer);
-   //div.addEventListener("touchstart", playAudio);
-   document.body.appendChild(div);
-  }
-  createDiv8(divId8)
-  {
-    var div = document.createElement("div");
-    div.id = divId8;
-    div.innerHTML = '<img src=\'resources/longTable.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 25 + "px";
-    div.style.top = 100 + "px";
-   div.addEventListener("touchstart", this.movePlayer);
-   document.body.appendChild(div);
-  }
-  createDiv9(divId9)
-  {
-    var div = document.createElement("div");
-    div.id = divId9;
-    div.innerHTML = '<img src=\'resources/longTable.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 275 + "px";
-    div.style.top = 100 + "px";
-   div.addEventListener("touchstart", this.movePlayer);
-   document.body.appendChild(div);
-  }
   movePlayer(e){
     console.log("touching")
     gameNs.move = true
@@ -106,7 +34,7 @@ class GameScene
   {
     console.log("Initialising Game World");
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
-    document.addEventListener("touchstart", this.onTouchStart, false);
+    document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
     document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
@@ -118,11 +46,17 @@ class GameScene
   {
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
-    if (gameNs.move === true)
-    {
-      this.player.moveRight();
-    }
+    //for (var i = 0; i < 4; i++)
+    //{
+      //if (this.player.checkCollision(gameNs.table[i]))
+      //{
+      //  this.player.moveRight
+    //  }
+    //}
 
+    if (gameNs.move === true){
+      this.player.moveRight()
+    }
 
     this.render();
 
@@ -139,8 +73,15 @@ class GameScene
     var ctx = mycanvas.getContext("2d");
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
-    this.player.render();
     gameNs.customer.render()
+    for (var i = 0; i < 4; i++)
+    {
+      gameNs.table[i].render();
+    }
+
+    gameNs.service.render();
+    gameNs.washing.render();
+    this.player.render();
     ctx.font = '55px Arial';
 
 
@@ -155,35 +96,39 @@ class GameScene
   }
   onTouchStart(e)
   {
+	   gameNs.touches = e.touches;
 
-	   this.touches = e.touches;
-	   gameNs.startX = this.touches[0].clientX;
-	   gameNs.startY = this.touches[0].clientY;
-
+	   gameNs.startX = gameNs.touches[0].clientX;
+	   gameNs.startY = gameNs.touches[0].clientY;
   }
-
   onTouchMove(e)
   {
-	   this.touches = e.changedTouches;
+	   gameNs.touches = e.changedTouches;
 
-	   gameNs.endX = this.touches[0].clientX;
-	   gameNs.endY = this.touches[0].clientY;
-     if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height)) {
-        // Assign new coordinates to our object
+	   gameNs.endX = gameNs.touches[0].clientX;
+	   gameNs.endY = gameNs.touches[0].clientY;
+     if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height) )
+     {
+
         gameNs.px = gameNs.endX;
         gameNs.py = gameNs.endY;
       }
-	   gameNs.startX = this.touches[0].clientX;
-	   gameNs.startY = this.touches[0].clientY;
+	   gameNs.startX = gameNs.touches[0].clientX;
+	   gameNs.startY = gameNs.touches[0].clientY;
   }
 
   onTouchEnd(e)
   {
+    for (var i = 0; i < 4; i++)
+    {
+      if(gameNs.table[i].detectHit(gameNs.table[i].x, gameNs.table[i].y, gameNs.startX, gameNs.startY, gameNs.table[i].width, gameNs.table[i].height)&& gameNs.sceneManager.getScene() == "Game Scene") {
+         // Assign new coordinates to our object
+         gameNs.move = true
+       }
+    }
 
-	   gameNs.endX = this.touches[0].clientX;
- 	   gameNs.endY = this.touches[0].clientY;
-
-
+	   gameNs.endX = gameNs.touches[0].clientX;
+ 	   gameNs.endY = gameNs.touches[0].clientY;
   }
 
 

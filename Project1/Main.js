@@ -31,12 +31,12 @@ function main()
   sceneManager.addScene(game);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
-  window.addEventListener("keydown", function(e) {
-
-	    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-	        e.preventDefault();
-	    }
-	}, false);
+  window.addEventListener('touchstart', function(e) {
+    if (e.targetTouches.length === 2) {
+      passive: false
+      e.preventDefault();
+    }
+    }, { passive: false } );
   draw(titlescene, main, game, sceneManager);
   update(sceneManager);
 
@@ -68,33 +68,11 @@ function initCanvas()
 function update(sceneManager)
 {
 
-  if (gameNs.sceneManager.getScene() == "Game Scene")
+  if (gameNs.sceneManager.getScene() === "Game Scene")
   {
     gameNs.game.update()
-  }
-  if (gameNs.sceneManager.getScene() == "Game Scene" && gameNs.createdGame == false)
-  {
-    gameNs.created = false
-    gameNs.game.createDiv10("divId")
-    gameNs.game.createDiv4("divId")
-    gameNs.game.createDiv5("divId")
-    gameNs.game.createDiv6("divId")
-    gameNs.game.createDiv7("divId")
-    gameNs.game.createDiv8("divId")
-    gameNs.game.createDiv9("divId")
-
-    gameNs.createdGame = true
     gameNs.playing = true
   }
-  if (gameNs.sceneManager.getScene() == "Main Scene" && gameNs.created === false)
-  {
-    gameNs.createdGame = false
-    gameNs.main.createDiv("divId")
-    gameNs.main.createDiv2("divId2")
-    gameNs.main.createDiv3("divId3")
-    gameNs.created = true
-  }
-
 
 
   window.requestAnimationFrame(this.update);

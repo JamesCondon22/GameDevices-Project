@@ -18,6 +18,8 @@ class Player
       this.height = height;
       gameNs.x = this.x
       gameNs.y = this.y
+      this.img = new Image();
+      this.img.src = "resources/waiter.png"
    }
    /**
     * @param {Date} deltaTime time
@@ -35,40 +37,53 @@ class Player
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.fillRect(gameNs.x, gameNs.y, this.width,this.height);
+     ctx.drawImage(this.img, gameNs.x, gameNs.y, this.width, this.height);
 
    }
 
 
    moveRight()
    {
-     if (gameNs.x > gameNs.endX)
+     if (gameNs.x + 50> gameNs.endX)
      {
           gameNs.x -= 3;
      }
-     if (gameNs.x< gameNs.endX )
+     if (gameNs.x+ 50< gameNs.endX )
      {
           gameNs.x += 3;
      }
-     if (gameNs.y> gameNs.endY )
+     if (gameNs.y+ 50> gameNs.endY )
      {
          gameNs.y -= 3;
      }
-     if (gameNs.y< gameNs.endY )
+     if (gameNs.y + 50< gameNs.endY )
      {
         gameNs.y += 3;
 
      }
-
-     if (gameNs.x > gameNs.endX - 5 && gameNs.x < gameNs.endX + 5
-     && gameNs.y > gameNs.endY - 5 && gameNs.y < gameNs.endY + 5)
-     {
-       gameNs.move = false;
+     for (var i = 0; i < 4; i++){
+       if (this.checkCollision(gameNs.table[i]))
+       {
+         gameNs.move = false;
+         console.log("colliding")
+       }
      }
-
-
    }
-   
+
+   checkCollision(e)
+ 	{
+ 		var collides = false;
+
+ 		if ((gameNs.x < e.x + e.width) &&
+ 				(gameNs.x + this.width > e.x) &&
+ 				(gameNs.y + this.height > e.y) &&
+ 				(gameNs.y < e.y + e.height))
+ 		{
+ 			collides = true;
+ 		}
+ 		return collides;
+ 	}
+
 
 
  }
