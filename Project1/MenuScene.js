@@ -45,5 +45,22 @@ class MenuScene
 
   }
 
+ touchstart(e)
+ {
+   gameNs.touches = e.touches;
+   gameNs.startX = gameNs.touches[0].clientX;
+   gameNs.startY = gameNs.touches[0].clientY;
+ }
+
+ collisionPlay()
+ {
+   if (this.imgPlay.x > gameNs.startX && this.imgPlay.x < gameNs.startX + this.width)
+   {
+     if (this.imgPlay.x > gameNs.startY && this.imgPlay.y < gameNs.startY + this.height)
+     {
+       gameNs.sceneManager.goToScene("Game Scene");
+     }
+   }
+ }
 
 }
