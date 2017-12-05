@@ -9,45 +9,22 @@ class MenuScene
   * @param {title} string title of the MenuScene.
   * This construcor uses the keyword super to inherit from the Scene class
   */
-  constructor(title)
+  constructor(title,width,height)
   {
     this.title = title
     gameNs.playing = false;
+    this.width = width;
+    this.height = height;
+    this.imgPlay = new Image();
+    this.imgPlay.src = "resources/buttonSpritePlay.png"
+    this.imgOptions = new Image();
+    this.imgOptions.src = "resources/buttonSpriteOptions.png"
+    this.imgExit = new Image();
+    this.imgExit.src = "resources/buttonSpriteExit.png"
 
   }
 
-  createDiv(divId)
-  {
-    var div = document.createElement("div");
-	  div.id = divId;
-	  div.innerHTML = '<img src=\'resources/buttonSpritePlay.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 100 + "px";
-    div.style.top = 100 + "px";
-	  document.body.appendChild(div);
-  }
-  createDiv2(divId2)
-  {
-    var div = document.createElement("div");
-	  div.id = divId2;
-	  div.innerHTML = '<img src=\'resources/buttonSpriteOptions.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 100 + "px";
-    div.style.top = 300 + "px";
-	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(div);
-  }
-  createDiv3(divId3)
-  {
-    var div = document.createElement("div");
-	  div.id = divId3;
-	  div.innerHTML = '<img src=\'resources/buttonSpriteExit.png\'>';
-    div.style.position = "absolute";
-    div.style.left = 100 + "px";
-    div.style.top = 500 + "px";
-	  //div.addEventListener("touchstart", playAudio);
-	  document.body.appendChild(div);
-  }
+
 
 
 /**
@@ -62,6 +39,9 @@ class MenuScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#0C8100";
     ctx.font = '35px Corbel';
+    ctx.drawImage(this.imgPlay, 20, 10, this.width, this.height);
+    ctx.drawImage(this.imgOptions, 20, 310, this.width, this.height);
+    ctx.drawImage(this.imgExit, 20, 610, this.width, this.height);
 
   }
 
