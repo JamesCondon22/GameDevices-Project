@@ -14,7 +14,11 @@ class TitleScene
   {
     this.title = title
     gameNs.playing = false;
-  }
+    this.imgMan = new Image();
+    this.imgMan.src = "resources/CoverWaiter.png";
+    this.imgLogo = new Image();
+    this.imgLogo.src = "resources/Logo.png";
+;  }
 
   render()
   {
@@ -25,6 +29,8 @@ class TitleScene
     ctx.font = '48px serif';
     ctx.fillText(this.title, 10, 50);
     gameNs.scenetitle = this.title;
+    ctx.drawImage(this.imgMan, 175, 30, 95, 600);
+    ctx.drawImage(this.imgLogo, 0, 700, 500, 100);
   }
 
 }

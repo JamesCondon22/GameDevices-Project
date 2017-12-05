@@ -42,22 +42,37 @@ class MenuScene
     ctx.drawImage(this.imgPlay, 20, 10, this.width, this.height);
     ctx.drawImage(this.imgOptions, 20, 310, this.width, this.height);
     ctx.drawImage(this.imgExit, 20, 610, this.width, this.height);
-
+    document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
+    //this.collisionPlay();
   }
 
- touchstart(e)
+ onTouchStart(e)
  {
+   console.log("touchStart");
    gameNs.touches = e.touches;
    gameNs.startX = gameNs.touches[0].clientX;
    gameNs.startY = gameNs.touches[0].clientY;
+
+   if (20 > gameNs.startX && 20 < gameNs.startX + this.width)
+   {
+     console.log("play Collision X");
+     if (this.imgPlay.x > gameNs.startY && this.imgPlay.y < gameNs.startY + this.height)
+     {
+       console.log("play Collision Y");
+       //gameNs.sceneManager.goToScene("Game Scene");
+     }
+   }
  }
+
 
  collisionPlay()
  {
+
    if (this.imgPlay.x > gameNs.startX && this.imgPlay.x < gameNs.startX + this.width)
    {
      if (this.imgPlay.x > gameNs.startY && this.imgPlay.y < gameNs.startY + this.height)
      {
+       console.log("play Collision");
        gameNs.sceneManager.goToScene("Game Scene");
      }
    }
