@@ -3,7 +3,7 @@
  * C00207200
  * The scene class parent of the other scenes
  */
-class Customer
+class Dinner
 {
   /**
    * @param {title} string
@@ -12,14 +12,20 @@ class Customer
    */
    constructor(xpos,ypos,width,height)
    {
-      this.px = xpos;
-      this.py = ypos;
+      this.x = xpos;
+      this.y = ypos;
       this.width = width;
       this.height = height;
-      this.touched = false
+      this.img = new Image();
+      this.img.src = "resources/dinnerDish.png"
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
+      this.collected = false;
+      this.served = false
+      this.newPosX = 0
+      this.newPosY = 0
+
    }
    /**
     * @param {Date} deltaTime time
@@ -27,9 +33,20 @@ class Customer
     * the count is incremented. the count is multiplied by the image
     * width. when the count is more than length of the spritesheet its reset
     */
-   update(dt)
+   update()
    {
+      if (this.collected === true)
+      {
+        this.x = gameNs.player.x;
+        this.y = gameNs.player.y;
+      }
+      if (this.served === true)
+      {
+        this.x = this.newPosX
+        this.y = this.newPosY
 
+      }
+      //console.log(gameNs.player.atTable)
 
    }
    detectHit(x1,y1,x2,y2,w,h)
@@ -39,9 +56,11 @@ class Customer
      if(y2-y1>h) return false;
      return true;
    }
+
    onTouchStart(e)
    {
      this.touches = e.touches;
+
 
      this.startX = this.touches[0].clientX;
      this.startY = this.touches[0].clientY;
@@ -51,30 +70,34 @@ class Customer
  	   this.touches = e.changedTouches;
  	   this.endX = this.touches[0].clientX;
  	   this.endY = this.touches[0].clientY;
-     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) )
-     {
-       console.log("collide")
-        this.px = this.endX;
-        this.py = this.endY;
-      }
+
      this.startX = this.touches[0].clientX;
  	   this.startY = this.touches[0].clientY;
    }
    onTouchEnd(e)
    {
+     if (gameNs.player.atService === true && this.detectHit(this.x, this.y, this.startX, this.startY, this.width, this.height))
+     {
+       this.collected = true;
+     }
+    if(this.collected === true && gameNs.player.atTableOne === true && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+    {
+       this.newPosX = gameNs.tableOne.x
+       this.newPosY = gameNs.tableOne.y
+       //console.log("hit")
+       this.collected = false
+       this.served = true
+    }
 
  	   this.endX = this.touches[0].clientX;
   	 this.endY = this.touches[0].clientY;
    }
 
-
    render()
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.fillRect(this.px, this.py, this.width,this.height);
+     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
    }
-
-
  }

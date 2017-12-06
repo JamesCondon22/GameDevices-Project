@@ -33,7 +33,6 @@ function main()
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
   window.addEventListener('touchstart', function(e) {
     if (e.targetTouches.length === 2) {
-      passive: false
       e.preventDefault();
     }
     }, { passive: false } );

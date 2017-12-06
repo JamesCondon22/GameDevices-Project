@@ -18,6 +18,7 @@ class Table
       this.height = height;
       this.img = new Image();
       this.img.src = "resources/tableCustomer.png"
+      this.full = false;
    }
    /**
     * @param {Date} deltaTime time
