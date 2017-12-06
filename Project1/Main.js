@@ -31,12 +31,12 @@ function main()
   sceneManager.addScene(game);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
-  window.addEventListener('touchstart', function(e) {
+  /*window.addEventListener('touchstart', function(e) {
     if (e.targetTouches.length === 2) {
       passive: false
       e.preventDefault();
     }
-    }, { passive: false } );
+  }, { passive: false } );*/
   draw(titlescene, main, game, sceneManager);
   update(sceneManager);
 

@@ -53,6 +53,8 @@ class MenuScene
    gameNs.startX = gameNs.touches[0].clientX;
    gameNs.startY = gameNs.touches[0].clientY;
 
+   //gameNs.sceneManager.changeScene("Game Scene");
+
    if (20 > gameNs.startX && 20 < gameNs.startX + this.width)
    {
      console.log("play Collision X");

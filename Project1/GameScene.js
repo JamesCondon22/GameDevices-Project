@@ -23,6 +23,9 @@ class GameScene
     gameNs.washing = new CleaningTable(275,50,200,50);
     gameNs.playing = true;
     gameNs.move = false
+    var seconds;
+    var minutes;
+
   }
 
   movePlayer(e){
@@ -38,6 +41,8 @@ class GameScene
     document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
+    this.seconds = 0;
+    this.minutes = 0;
 
 
   }
@@ -53,6 +58,21 @@ class GameScene
       //  this.player.moveRight
     //  }
     //}
+  /*  var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+
+    var now = new Date().getTime();
+
+    var distance = countDownDate - now;
+
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("mycanvas").innerHTML = minutes + "m " + seconds + "s";
+    console.log(minutes);*/
+
+
+    //setTimeout(this.gameLost(), 60000);
+    this.gameTimer();
 
     if (gameNs.move === true){
       this.player.moveRight()
@@ -131,7 +151,25 @@ class GameScene
  	   gameNs.endY = gameNs.touches[0].clientY;
   }
 
+  gameTimer()
+   {
+     this.seconds = this.seconds + 1;
+     //console.log(this.time);
+    /* if (this.seconds > 3600)
+     {
+       this.minutes = this.minutes + 1;
+     }*/
 
+     //this.time = this.time%60
+     //this.time = Math.trunc(this.time/60);
+     console.log(Math.trunc(this.seconds/60));
+    /* if ( Math.trunc(this.time/60) === 4)
+     {
+       this.minutes += this.minutes + 1;
+     }
+
+     console.log(this.minutes);*/
+   }
 
 
 }

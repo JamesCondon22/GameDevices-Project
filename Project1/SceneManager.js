@@ -72,6 +72,12 @@ class SceneManager
     //console.log(  this.currentScene )
   }
 
+
+  changeScene(title)
+  {
+    this.currentScene = this.titles[title]
+  }
+
   /**
    *  logs the current scene
    * draws the current scene
