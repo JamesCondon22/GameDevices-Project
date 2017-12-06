@@ -13,7 +13,7 @@ class GameScene
   {
     this.title = title
     gameNs.player = new Player(0,250, 60,100);
-    gameNs.customer = new Customer(0,700,20,20)
+    gameNs.customer = new Customer(0,700,50,50)
     gameNs.dinner = new Dinner(20,20,20,20)
     gameNs.table = [4]
     gameNs.tableOne= new Table(100,250,125,50);
@@ -60,9 +60,9 @@ class GameScene
     }
   //  console.log(gameNs.player.currentX +", " +gameNs.player.currentY)
     gameNs.dinner.update();
+    gameNs.customer.update()
     this.gameTimer();
     this.render();
-    console.log(gameNs.player.move)
     //console.log(gameNs.player.move)
   }
 /**
@@ -77,7 +77,7 @@ class GameScene
     var ctx = mycanvas.getContext("2d");
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
-    gameNs.customer.render()
+
 
     gameNs.tableOne.render();
     gameNs.tableTwo.render();
@@ -88,6 +88,7 @@ class GameScene
     gameNs.washing.render();
     gameNs.player.render();
     gameNs.dinner.render();
+    gameNs.customer.render()
     ctx.font = '55px Arial';
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
@@ -149,8 +150,6 @@ class GameScene
      //}
 
 
-     console.log(this.startX + ' , ' + this.startY);
-     console.log(gameNs.player.x + ' , ' + gameNs.player.y);
   }
   onTouchMove(e)
   {

@@ -18,6 +18,12 @@ class Table
       this.height = height;
       this.img = new Image();
       this.img.src = "resources/tableCustomer.png"
+      this.seat = [2]
+      this.seat[0] = new Seat(this.x - 30, this.y + this.height / 2, 50,50)
+      this.seat[1] = new Seat(this.x + this.width , this.y + this.height / 2, 50,50)
+      this.seatOneFull = false;
+      this.seatTwoFull = false;
+      this.tableFull = false
       this.full = false;
    }
    /**
@@ -44,6 +50,9 @@ class Table
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
+     for (var i = 0; i< 2; i++)
+     {
+       this.seat[i].render();
+     }
    }
  }
