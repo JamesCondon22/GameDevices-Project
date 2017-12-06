@@ -104,7 +104,13 @@ class GameScene
     gameNs.service.render();
     gameNs.washing.render();
     this.player.render();
+
+    //Outputting the timer to the screen here
     ctx.font = '55px Arial';
+    ctx.fillText(this.minutes + ":",10,50)
+    ctx.fillText(this.secHolder, 60, 50);
+    ctx.fillText(" / 2:00", 110, 50);
+    //gameNs.scenetitle = this.title;
 
 
   }
@@ -153,31 +159,32 @@ class GameScene
  	   gameNs.endY = gameNs.touches[0].clientY;
   }
 
+  /**
+  * Simple function to update game timer and display it to the screen
+  * @param {seconds} float secound counter
+  * @param {minutes} float minute counter
+  * @param {secHolder} float place holder for calculating minutes based on seconds.
+  */
   gameTimer()
    {
      //This sets the time for the seconds based upon the update speed
      this.seconds = this.seconds + 1;
 
 
-     this.secHolder = Math.trunc(this.seconds/60)
+     this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
 
+     // if statement for assigning minutes after 59 seconds
      if (this.secHolder >= 59)
      {
        this.minutes = 1;
      }
-     console.log(this.minutes + " minute ", Math.trunc(this.seconds/60) + " seconds");
-     //console.log(this.minutes + " minute");
+
+     // Wrapping the seconds back around to 0 once it reaches a minute
      if (Math.trunc(this.seconds/60) >= 59 && Math.trunc(this.seconds/60) <= 61)
      {
        this.seconds = 0;
      }
 
-     //Minutes based on second value
-
-    /* if (this.seconds > 3600)
-     {
-       this.minutes = this.minutes + 1;
-     }*/
 
 
    }
