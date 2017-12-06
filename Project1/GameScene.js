@@ -25,6 +25,7 @@ class GameScene
     gameNs.move = false
     var seconds;
     var minutes;
+    var secHolder
 
   }
 
@@ -43,6 +44,7 @@ class GameScene
     this.update = this.update.bind(this);
     this.seconds = 0;
     this.minutes = 0;
+    this.secHolder = 0;
 
 
   }
@@ -153,22 +155,31 @@ class GameScene
 
   gameTimer()
    {
+     //This sets the time for the seconds based upon the update speed
      this.seconds = this.seconds + 1;
-     //console.log(this.time);
+
+
+     this.secHolder = Math.trunc(this.seconds/60)
+
+     if (this.secHolder >= 59)
+     {
+       this.minutes = 1;
+     }
+     console.log(this.minutes + " minute ", Math.trunc(this.seconds/60) + " seconds");
+     //console.log(this.minutes + " minute");
+     if (Math.trunc(this.seconds/60) >= 59 && Math.trunc(this.seconds/60) <= 61)
+     {
+       this.seconds = 0;
+     }
+
+     //Minutes based on second value
+
     /* if (this.seconds > 3600)
      {
        this.minutes = this.minutes + 1;
      }*/
 
-     //this.time = this.time%60
-     //this.time = Math.trunc(this.time/60);
-     console.log(Math.trunc(this.seconds/60));
-    /* if ( Math.trunc(this.time/60) === 4)
-     {
-       this.minutes += this.minutes + 1;
-     }
 
-     console.log(this.minutes);*/
    }
 
 
