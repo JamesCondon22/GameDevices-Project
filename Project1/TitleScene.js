@@ -14,6 +14,10 @@ class TitleScene
   {
     this.title = title
     gameNs.playing = false;
+    this.imgMan = new Image();
+    this.imgMan.src = "resources/FatTony.png";
+    this.imgLogo = new Image();
+    this.imgLogo.src = "resources/Logo.png";
   }
 
   render()
@@ -25,6 +29,8 @@ class TitleScene
     ctx.font = '48px serif';
     ctx.fillText(this.title, 10, 50);
     gameNs.scenetitle = this.title;
+    ctx.drawImage(this.imgMan, 100, 100, 300, 500);
+    ctx.drawImage(this.imgLogo, 0, 700, 500, 100);
   }
 
 }

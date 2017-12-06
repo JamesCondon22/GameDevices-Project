@@ -14,7 +14,7 @@ class GameScene
     this.title = title
     gameNs.player = new Player(0,250, 60,100);
     gameNs.customer = new Customer(0,700,20,20)
-    gameNs.dinner = new Dinner(0,0,20,20)
+    gameNs.dinner = new Dinner(20,20,20,20)
     gameNs.table = [4]
     gameNs.tableOne= new Table(100,250,125,50);
     gameNs.tableTwo= new Table(300,250,125,50);
@@ -23,9 +23,14 @@ class GameScene
     gameNs.service = new ServiceTable(25,50,200,50);
     gameNs.washing = new CleaningTable(275,50,200,50);
     gameNs.playing = true;
-
+    var seconds;
+    var minutes;
+    var secHolder
 
   }
+
+
+
 
 
 
@@ -37,6 +42,9 @@ class GameScene
     document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
+    this.seconds = 0;
+    this.minutes = 0;
+    this.secHolder = 0;
 
 
   }
@@ -52,6 +60,7 @@ class GameScene
     }
   //  console.log(gameNs.player.currentX +", " +gameNs.player.currentY)
     gameNs.dinner.update();
+    this.gameTimer();
     this.render();
     console.log(gameNs.player.move)
     //console.log(gameNs.player.move)
@@ -80,6 +89,10 @@ class GameScene
     gameNs.player.render();
     gameNs.dinner.render();
     ctx.font = '55px Arial';
+    ctx.fillText(this.minutes + ":",10,50)
+    ctx.fillText(this.secHolder, 60, 50);
+    ctx.fillText(" / 2:00", 110, 50);
+    //gameNs.scenetitle = this.title;
 
 
   }
@@ -180,7 +193,35 @@ class GameScene
 
   }
 
+  /**
+  * Simple function to update game timer and display it to the screen
+  * @param {seconds} float secound counter
+  * @param {minutes} float minute counter
+  * @param {secHolder} float place holder for calculating minutes based on seconds.
+  */
+  gameTimer()
+   {
+     //This sets the time for the seconds based upon the update speed
+     this.seconds = this.seconds + 1;
 
+
+     this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
+
+     // if statement for assigning minutes after 59 seconds
+     if (this.secHolder >= 59)
+     {
+       this.minutes = 1;
+     }
+
+     // Wrapping the seconds back around to 0 once it reaches a minute
+     if (Math.trunc(this.seconds/60) >= 59 && Math.trunc(this.seconds/60) <= 61)
+     {
+       this.seconds = 0;
+     }
+
+
+
+   }
 
 
 }

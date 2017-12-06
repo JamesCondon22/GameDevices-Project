@@ -13,8 +13,8 @@ var gameNs = {};
 function main()
 {
   initCanvas();
-  var titlescene = new TitleScene('Title Scene');
-  var main = new MenuScene('Main Scene');
+  var titlescene = new TitleScene('Time to get to work!');
+  var main = new MenuScene('Main Scene',400,200);
   var game = new GameScene('Game Scene');
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
@@ -31,11 +31,11 @@ function main()
   sceneManager.addScene(game);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
-  window.addEventListener('touchstart', function(e) {
+  /*window.addEventListener('touchstart', function(e) {
     if (e.targetTouches.length === 2) {
       e.preventDefault();
     }
-    }, { passive: false } );
+  }, { passive: false } );*/
   draw(titlescene, main, game, sceneManager);
   update(sceneManager);
 
