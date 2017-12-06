@@ -170,20 +170,20 @@ class GameScene
      //This sets the time for the seconds based upon the update speed
      this.seconds = this.seconds + 1;
 
+     // Wrapping the seconds back around to 0 once it reaches a minute
+     if (Math.trunc(this.seconds/60) >= 60 && Math.trunc(this.seconds/60) <= 61)
+     {
+       this.seconds = 0;
+       this.minutes += 1;
+     }
 
      this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
 
      // if statement for assigning minutes after 59 seconds
-     if (this.secHolder >= 59)
-     {
-       this.minutes = 1;
-     }
+    
 
-     // Wrapping the seconds back around to 0 once it reaches a minute
-     if (Math.trunc(this.seconds/60) >= 59 && Math.trunc(this.seconds/60) <= 61)
-     {
-       this.seconds = 0;
-     }
+
+
 
 
 
