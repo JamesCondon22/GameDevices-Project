@@ -18,7 +18,7 @@ class TitleScene
     this.imgMan.src = "resources/FatTony.png";
     this.imgLogo = new Image();
     this.imgLogo.src = "resources/Logo.png";
-;  }
+  }
 
   render()
   {

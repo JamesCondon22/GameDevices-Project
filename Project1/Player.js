@@ -16,10 +16,17 @@ class Player
       this.y = ypos;
       this.width = width;
       this.height = height;
-      gameNs.x = this.x
-      gameNs.y = this.y
       this.img = new Image();
       this.img.src = "resources/waiter.png"
+      this.atTableOne = false;
+      this.atTableTwo = false;
+      this.atTableThree = false;
+      this.atTableFour = false;
+      this.atService = false;
+      this.atWashing = false;
+      this.move = false
+      this.currentX = 0;
+      this.currentY = 0;
    }
    /**
     * @param {Date} deltaTime time
@@ -37,36 +44,82 @@ class Player
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.drawImage(this.img, gameNs.x, gameNs.y, this.width, this.height);
+     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
    }
 
 
-   moveRight()
+   movePlayer()
    {
-     if (gameNs.x + 50> gameNs.endX)
+     if (this.x + 50>   this.currentX)
      {
-          gameNs.x -= 3;
+          this.x -= 3;
      }
-     if (gameNs.x+ 50< gameNs.endX )
+     if (this.x+ 50<   this.currentX)
      {
-          gameNs.x += 3;
+          this.x += 3;
      }
-     if (gameNs.y+ 50> gameNs.endY )
+     if (this.y+ 50>   this.currentY)
      {
-         gameNs.y -= 3;
+         this.y -= 3;
      }
-     if (gameNs.y + 50< gameNs.endY )
+     if (this.y + 50<   this.currentY)
      {
-        gameNs.y += 3;
+        this.y += 3;
 
      }
-     for (var i = 0; i < 4; i++){
-       if (this.checkCollision(gameNs.table[i]))
-       {
-         gameNs.move = false;
-         console.log("colliding")
-       }
+
+      if (this.checkCollision(gameNs.tableOne))
+      {
+        this.move = false;
+        this.atTableOne = true;
+        //console.log(this.atTableOne)
+      }
+      else if (this.checkCollision(gameNs.tableTwo))
+      {
+        this.move = false;
+        this.atTableTwo = true;
+        //console.log(this.atTableTwo)
+      }
+      else if (this.checkCollision(gameNs.tableThree))
+      {
+        this.move = false;
+        this.atTableThree = true;
+        //console.log(this.atTableThree)
+      }
+      else if (this.checkCollision(gameNs.tableFour))
+      {
+        this.move = false;
+        this.atTableFour = true;
+        //console.log(this.atTableFour)
+      }
+      else
+      {
+        this.atTableOne = false;
+        this.atTableTwo = false;
+        this.atTableThree = false;
+        this.atTableFour = false;
+      }
+
+     if (this.checkCollision(gameNs.service))
+     {
+       this.move = false;
+       this.atService = true;
+       console.log("atService")
+     }
+     else
+     {
+        this.atService = false;
+     }
+     if (this.checkCollision(gameNs.washing))
+     {
+       this.move = false;
+       this.atWashing = true;
+       console.log("atWashing")
+     }
+     else
+     {
+       this.atWashing = false;
      }
    }
 
@@ -74,15 +127,23 @@ class Player
  	{
  		var collides = false;
 
- 		if ((gameNs.x < e.x + e.width) &&
- 				(gameNs.x + this.width > e.x) &&
- 				(gameNs.y + this.height > e.y) &&
- 				(gameNs.y < e.y + e.height))
+ 		if ((this.x < e.x + e.width) &&
+ 				(this.x + this.width > e.x) &&
+ 				(this.y + this.height > e.y + 10) &&
+ 				(this.y + 80 < e.y + e.height))
  		{
  			collides = true;
  		}
  		return collides;
  	}
+
+  detectHit(x1,y1,x2,y2,w,h)
+  {
+    //Very simple detection here
+    if(x2-x1>w) return false;
+    if(y2-y1>h) return false;
+    return true;
+  }
 
 
 

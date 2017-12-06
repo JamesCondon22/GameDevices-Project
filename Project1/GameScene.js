@@ -12,27 +12,27 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    this.player = new Player(0,250, 60,100);
+    gameNs.player = new Player(0,250, 60,100);
     gameNs.customer = new Customer(0,700,20,20)
+    gameNs.dinner = new Dinner(20,20,20,20)
     gameNs.table = [4]
-    gameNs.table[0]= new Table(100,200,125,50);
-    gameNs.table[1]= new Table(300,200,125,50);
-    gameNs.table[2]= new Table(100,500,125,50);
-    gameNs.table[3]= new Table(300,500,125,50);
+    gameNs.tableOne= new Table(100,250,125,50);
+    gameNs.tableTwo= new Table(300,250,125,50);
+    gameNs.tableThree= new Table(100,500,125,50);
+    gameNs.tableFour= new Table(300,500,125,50);
     gameNs.service = new ServiceTable(25,50,200,50);
     gameNs.washing = new CleaningTable(275,50,200,50);
     gameNs.playing = true;
-    gameNs.move = false
     var seconds;
     var minutes;
     var secHolder
 
   }
 
-  movePlayer(e){
-    console.log("touching")
-    gameNs.move = true
-  }
+
+
+
+
 
   initWorld()
   {
@@ -53,35 +53,17 @@ class GameScene
   {
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
-    //for (var i = 0; i < 4; i++)
-    //{
-      //if (this.player.checkCollision(gameNs.table[i]))
-      //{
-      //  this.player.moveRight
-    //  }
-    //}
-  /*  var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
 
-    var now = new Date().getTime();
-
-    var distance = countDownDate - now;
-
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("mycanvas").innerHTML = minutes + "m " + seconds + "s";
-    console.log(minutes);*/
-
-
-    //setTimeout(this.gameLost(), 60000);
-    this.gameTimer();
-
-    if (gameNs.move === true){
-      this.player.moveRight()
+    if (gameNs.player.move === true){
+      gameNs.player.movePlayer()
+      //console.log("moving")
     }
-
+  //  console.log(gameNs.player.currentX +", " +gameNs.player.currentY)
+    gameNs.dinner.update();
+    this.gameTimer();
     this.render();
-
+    console.log(gameNs.player.move)
+    //console.log(gameNs.player.move)
   }
 /**
   * creates a canvas and context
@@ -96,16 +78,16 @@ class GameScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
     gameNs.customer.render()
-    for (var i = 0; i < 4; i++)
-    {
-      gameNs.table[i].render();
-    }
+
+    gameNs.tableOne.render();
+    gameNs.tableTwo.render();
+    gameNs.tableThree.render();
+    gameNs.tableFour.render();
 
     gameNs.service.render();
     gameNs.washing.render();
-    this.player.render();
-
-    //Outputting the timer to the screen here
+    gameNs.player.render();
+    gameNs.dinner.render();
     ctx.font = '55px Arial';
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
@@ -124,39 +106,91 @@ class GameScene
   }
   onTouchStart(e)
   {
-	   gameNs.touches = e.touches;
+	   this.touches = e.touches;
 
-	   gameNs.startX = gameNs.touches[0].clientX;
-	   gameNs.startY = gameNs.touches[0].clientY;
+	   this.startX = this.touches[0].clientX;
+	   this.startY = this.touches[0].clientY;
+     if(gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+     {
+       //if (gameNs.player.atTableOne === false)
+       //{
+          gameNs.player.move = true
+          gameNs.player.currentX = this.startX
+          gameNs.player.currentY= this.startY
+       //}
+     }
+     if(gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, this.startX, this.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
+     {
+       if (gameNs.player.atTableTwo === false)
+       {gameNs.player.move  = true
+       gameNs.player.currentX = this.startX
+       gameNs.player.currentY= this.startY}
+     }
+     if(gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, this.startX, this.startY, gameNs.tableThree.width, gameNs.tableThree.height))
+     {
+       if (gameNs.player.atTableThree === false)
+       {gameNs.player.move = true
+       gameNs.player.currentX = this.startX
+       gameNs.player.currentY= this.startY}
+     }
+     if(gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, this.startX, this.startY, gameNs.tableFour.width, gameNs.tableFour.height))
+     {
+       if (gameNs.player.atTableFour === false)
+       {
+         gameNs.player.move = true
+         gameNs.player.currentX = this.startX
+         gameNs.player.currentY= this.startY
+       }
+
+     }
+     //if (gameNs.player.detectHit(gameNs.player.x, gameNs.player.y, gameNs.player.startX, gameNs.player.startY, gameNs.player.width, gameNs.player.height))
+     //{
+    //    gameNs.player.move = false
+     //}
+
+
+     console.log(this.startX + ' , ' + this.startY);
+     console.log(gameNs.player.x + ' , ' + gameNs.player.y);
   }
   onTouchMove(e)
   {
-	   gameNs.touches = e.changedTouches;
+	   this.touches = e.changedTouches;
 
-	   gameNs.endX = gameNs.touches[0].clientX;
-	   gameNs.endY = gameNs.touches[0].clientY;
-     if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height) )
-     {
+	   this.endX = this.touches.clientX;
+	   this.endY = this.touches.clientY;
+     //if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height) )
+     //{
 
-        gameNs.px = gameNs.endX;
-        gameNs.py = gameNs.endY;
-      }
-	   gameNs.startX = gameNs.touches[0].clientX;
-	   gameNs.startY = gameNs.touches[0].clientY;
+      //  gameNs.px = gameNs.endX;
+      //  gameNs.py = gameNs.endY;
+      //}
+	   this.startX = this.touches.clientX;
+	   this.startY = this.touches.clientY;
   }
 
   onTouchEnd(e)
   {
-    for (var i = 0; i < 4; i++)
-    {
-      if(gameNs.table[i].detectHit(gameNs.table[i].x, gameNs.table[i].y, gameNs.startX, gameNs.startY, gameNs.table[i].width, gameNs.table[i].height)&& gameNs.sceneManager.getScene() == "Game Scene") {
-         // Assign new coordinates to our object
-         gameNs.move = true
-       }
-    }
 
-	   gameNs.endX = gameNs.touches[0].clientX;
- 	   gameNs.endY = gameNs.touches[0].clientY;
+
+
+
+
+    //if(gameNs.service.detectHit(gameNs.service.x, gameNs.service.y, gameNs.startX, gameNs.startY, gameNs.service.width, gameNs.service.height)&& gameNs.sceneManager.getScene() == "Game Scene") {
+
+    //   gameNs.move = true
+    // }
+    // if(gameNs.washing.detectHit(gameNs.washing.x, gameNs.washing.y, gameNs.startX, gameNs.startY, gameNs.washing.width, gameNs.washing.height)&& gameNs.sceneManager.getScene() == "Game Scene") {
+//
+//gameNs.move = true
+    //  }
+
+
+     var touches = e.touches
+	   this.endX = touches.clientX;
+ 	   this.endY = touches.clientY;
+
+
+
   }
 
   /**

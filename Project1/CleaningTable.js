@@ -30,6 +30,13 @@ class CleaningTable
 
 
    }
+   detectHit(x1,y1,x2,y2,w,h)
+   {
+     //Very simple detection here
+     if(x2-x1>w) return false;
+     if(y2-y1>h) return false;
+     return true;
+   }
 
    render()
    {
