@@ -12,16 +12,16 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    gameNs.player = new Player(0,250, 60,100);
-    gameNs.customer = new Customer(0,700,50,50)
-    gameNs.dinner = new Dinner(20,20,20,20)
+    gameNs.player = new Player(500,450, 100,180);
+    gameNs.customer = new Customer(500,800,100,180)
+    gameNs.dinner = new Dinner(50,50,50,50)
     gameNs.table = [4]
-    gameNs.tableOne= new Table(100,250,125,50);
-    gameNs.tableTwo= new Table(300,250,125,50);
-    gameNs.tableThree= new Table(100,500,125,50);
-    gameNs.tableFour= new Table(300,500,125,50);
-    gameNs.service = new ServiceTable(25,50,200,50);
-    gameNs.washing = new CleaningTable(275,50,200,50);
+    gameNs.tableOne= new Table(70,350,250,100);
+    gameNs.tableTwo= new Table(650,350,250,100);
+    gameNs.tableThree= new Table(70,750,250,90);
+    gameNs.tableFour= new Table(650,750,250,90);
+    gameNs.service = new ServiceTable(50,50,375,100);
+    gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
     var seconds;
     var minutes;
@@ -45,7 +45,7 @@ class GameScene
     this.seconds = 0;
     this.minutes = 0;
     this.secHolder = 0;
-
+    gameNs.previousTime = Date.now();
 
   }
 
@@ -58,12 +58,24 @@ class GameScene
       gameNs.player.movePlayer()
       //console.log("moving")
     }
-  //  console.log(gameNs.player.currentX +", " +gameNs.player.currentY)
+    console.log(gameNs.player.move)
+    var now = Date.now();
+    var dt = (now - gameNs.previousTime);
+    gameNs.previousTime = now;
+    if (gameNs.player.move === true)
+    {
+          gameNs.player.update(dt);
+    }
+    //consolegameNs.player.currentX
     gameNs.dinner.update();
     gameNs.customer.update()
     this.gameTimer();
     this.render();
-    //console.log(gameNs.player.move)
+
+
+
+    console.log(gameNs.player.currentX+ ", "+gameNs.player.currentY)
+    console.log((gameNs.player.x + gameNs.player.width) + ", " + (gameNs.player.y + gameNs.player.height))
   }
 /**
   * creates a canvas and context
@@ -111,7 +123,7 @@ class GameScene
 
 	   this.startX = this.touches[0].clientX;
 	   this.startY = this.touches[0].clientY;
-     if(gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+     if(gameNs.tableOne.checkCollisionBetween(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
      {
        //if (gameNs.player.atTableOne === false)
        //{
@@ -120,21 +132,21 @@ class GameScene
           gameNs.player.currentY= this.startY
        //}
      }
-     if(gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, this.startX, this.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
+     if(gameNs.tableTwo.checkCollisionBetween(gameNs.tableTwo.x, gameNs.tableTwo.y, this.startX, this.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
      {
        if (gameNs.player.atTableTwo === false)
        {gameNs.player.move  = true
        gameNs.player.currentX = this.startX
        gameNs.player.currentY= this.startY}
      }
-     if(gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, this.startX, this.startY, gameNs.tableThree.width, gameNs.tableThree.height))
+     if(gameNs.tableThree.checkCollisionBetween(gameNs.tableThree.x, gameNs.tableThree.y, this.startX, this.startY, gameNs.tableThree.width, gameNs.tableThree.height))
      {
        if (gameNs.player.atTableThree === false)
        {gameNs.player.move = true
        gameNs.player.currentX = this.startX
        gameNs.player.currentY= this.startY}
      }
-     if(gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, this.startX, this.startY, gameNs.tableFour.width, gameNs.tableFour.height))
+     if(gameNs.tableFour.checkCollisionBetween(gameNs.tableFour.x, gameNs.tableFour.y, this.startX, this.startY, gameNs.tableFour.width, gameNs.tableFour.height))
      {
        if (gameNs.player.atTableFour === false)
        {
@@ -144,10 +156,7 @@ class GameScene
        }
 
      }
-     //if (gameNs.player.detectHit(gameNs.player.x, gameNs.player.y, gameNs.player.startX, gameNs.player.startY, gameNs.player.width, gameNs.player.height))
-     //{
-    //    gameNs.player.move = false
-     //}
+
 
 
   }

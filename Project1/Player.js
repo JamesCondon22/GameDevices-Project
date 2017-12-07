@@ -14,10 +14,14 @@ class Player
    {
       this.x = xpos;
       this.y = ypos;
+      this.fps = 10;
+      this.count = 0;
+      this.tickPerFrame = 1000 /this.fps;
+      this.time = 0;
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/waiter.png"
+      this.img.src = "resources/ash.png"
       this.atTableOne = false;
       this.atTableTwo = false;
       this.atTableThree = false;
@@ -27,6 +31,10 @@ class Player
       this.move = false
       this.currentX = 0;
       this.currentY = 0;
+      this.movingRight = false;
+      this.movingLeft = false;
+      this.movingUp = false;
+      this.movingDown = false;
    }
    /**
     * @param {Date} deltaTime time
@@ -37,15 +45,39 @@ class Player
    update(dt)
    {
 
+     if(dt != null)
+        {
+          this.time += dt;
+        }
+        var canvas = document.getElementById('mycanvas');
+    		var ctx = canvas.getContext('2d');
 
+
+        //changes position of x of the spritesheet
+        if(this.tickPerFrame < this.time)
+        {
+
+          this.count +=1;
+          if(this.count > 5)
+          {
+            this.count = 0;
+          }
+            this.time =0;
+        }
    }
 
    render()
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
+     if (this.movingLeft === true)
+     ctx.drawImage(this.img, this.count * 135, 450, 130, 135, this.x, this.y, 130, 135);
+     if (this.movingUp === true)
+     ctx.drawImage(this.img, this.count * 135, 300, 130, 135, this.x, this.y, 130, 135);
+     if (this.movingRight === true)
+     ctx.drawImage(this.img, this.count * 135, 150, 130, 135, this.x, this.y, 130, 135);
+     if (this.movingDown === true)
+     ctx.drawImage(this.img, this.count * 135, 0, 130, 135, this.x, this.y, 130, 135);
    }
 
 
@@ -54,18 +86,35 @@ class Player
      if (this.x + 50>   this.currentX)
      {
           this.x -= 3;
+          this.movingLeft = true
+          this.movingRight = false;
+          this.movingUp = false;
+          this.movingDown = false;
      }
      if (this.x+ 50<   this.currentX)
      {
           this.x += 3;
+          this.movingRight = true
+          this.movingLeft = false;
+          this.movingUp = false;
+          this.movingDown = false;
      }
      if (this.y+ 50>   this.currentY)
      {
          this.y -= 3;
+         this.movingUp = true
+         this.movingRight = false;
+         this.movingLeft = false;
+         this.movingDown = false;
      }
      if (this.y + 50<   this.currentY)
      {
         this.y += 3;
+        this.movingDown = true
+        this.movingRight = false;
+        this.movingLeft = false;
+        this.movingUp = false;
+
 
      }
 
@@ -129,13 +178,27 @@ class Player
 
  		if ((this.x < e.x + e.width) &&
  				(this.x + this.width > e.x) &&
- 				(this.y + this.height > e.y + 10) &&
- 				(this.y + 80 < e.y + e.height))
+ 				(this.y + this.height > e.y + 40) &&
+ 				(this.y + 110 < e.y + e.height))
  		{
  			collides = true;
  		}
  		return collides;
  	}
+
+  checkCollisionBetween(x,y,width,height)
+ {
+   var collides = false;
+
+   if ((this.x < x + width) &&
+       (this.x + this.width > x) &&
+       (this.y + this.height > y) &&
+       (this.y < y + height))
+   {
+     collides = true;
+   }
+   return collides;
+ }
 
   detectHit(x1,y1,x2,y2,w,h)
   {

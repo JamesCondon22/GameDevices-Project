@@ -43,14 +43,15 @@ class Customer
        //if (!gameNs.tableOne.tableFull && gameNs.tableOne.seatOneFull && !gameNs.tableOne.seatTwoFull)
       // {
       //   this.seatTwo()
-      // }
+
      }
      else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
+
      {
-       this.px = 0
-       this.py = 700
+       this.px = 500
+       this.py = 800
      }
-     console.log(this.touching)
+     //console.log(this.touching)
    }
    detectHit(x1,y1,x2,y2,w,h)
    {
@@ -75,8 +76,8 @@ class Customer
      if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst)
      {
        console.log("collide")
-        this.px = this.endX;
-        this.py = this.endY;
+        this.px = this.endX - 75;
+        this.py = this.endY - 50;
         this.touching = true
 
       }
@@ -106,9 +107,9 @@ class Customer
   seatOne()
   {
     this.px = gameNs.tableOne.seat[0].x
-    this.py = gameNs.tableOne.seat[0].y
+    this.py = gameNs.tableOne.seat[0].y - 30
     this.seatedFirst = true
-    gameNs.tableOne.seatOneFull = true
+    //gameNs.tableOne.seatOneFull = true
   }
   seatTwo()
   {

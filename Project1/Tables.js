@@ -19,8 +19,8 @@ class Table
       this.img = new Image();
       this.img.src = "resources/tableCustomer.png"
       this.seat = [2]
-      this.seat[0] = new Seat(this.x - 30, this.y + this.height / 2, 50,50)
-      this.seat[1] = new Seat(this.x + this.width , this.y + this.height / 2, 50,50)
+      this.seat[0] = new Seat(this.x - 90, this.y, 100,120)
+      this.seat[1] = new Seat(this.x + this.width - 20, this.y, 100,120)
       this.seatOneFull = false;
       this.seatTwoFull = false;
       this.tableFull = false
@@ -44,6 +44,19 @@ class Table
      if(y2-y1>h) return false;
      return true;
    }
+   checkCollisionBetween(x,y,width,height)
+  {
+    var collides = false;
+
+    if ((this.x < x + width) &&
+        (this.x + this.width > x) &&
+        (this.y + this.height > y) &&
+        (this.y < y + height))
+    {
+      collides = true;
+    }
+    return collides;
+  }
 
    render()
    {
