@@ -14,7 +14,7 @@ function main()
 {
   initCanvas();
   var titlescene = new TitleScene('Time to get to work!');
-  var main = new MenuScene('Main Scene',400,200);
+  var main = new MenuScene('Main Scene',800,400);
   var game = new GameScene('Game Scene');
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager

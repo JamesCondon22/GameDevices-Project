@@ -20,6 +20,10 @@ class Customer
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
+      var seconds;
+      var minutes;
+      this.seconds = 0;
+      this.minutes = 0;
    }
    /**
     * @param {Date} deltaTime time
@@ -67,6 +71,23 @@ class Customer
   	 this.endY = this.touches[0].clientY;
    }
 
+   gameTimer()
+    {
+      //This sets the time for the seconds based upon the update speed
+      this.seconds = this.seconds + 1;
+
+      // Wrapping the seconds back around to 0 once it reaches a minute
+      if (Math.trunc(this.seconds/60) >= 60 && Math.trunc(this.seconds/60) <= 61)
+      {
+        this.seconds = 0;
+        this.minutes += 1;
+      }
+
+      this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
+
+
+
+    }
 
    render()
    {
