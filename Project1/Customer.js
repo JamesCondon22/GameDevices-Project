@@ -22,6 +22,11 @@ class Customer
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
+
+      var seconds;
+      var minutes;
+      this.seconds = 0;
+      this.minutes = 0;
       this.touching = false;
       this.seatedFirst = false;
       this.seatedSecond = false;
@@ -41,7 +46,7 @@ class Customer
        {
          this.seatOne()
          gameNs.tableOne.seatOneFull = true
-         
+
        }
        else
        {

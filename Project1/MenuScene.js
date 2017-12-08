@@ -39,9 +39,9 @@ class MenuScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#0C8100";
     ctx.font = '35px Corbel';
-    ctx.drawImage(this.imgPlay, 20, 10, this.width, this.height);
-    ctx.drawImage(this.imgOptions, 20, 310, this.width, this.height);
-    ctx.drawImage(this.imgExit, 20, 610, this.width, this.height);
+    ctx.drawImage(this.imgPlay, 70, 50, this.width, this.height);
+    ctx.drawImage(this.imgOptions, 70, 500, this.width, this.height);
+    ctx.drawImage(this.imgExit, 70, 950, this.width, this.height);
     document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
     //this.collisionPlay();
   }

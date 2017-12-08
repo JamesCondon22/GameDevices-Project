@@ -16,8 +16,12 @@ class Dinner
       this.y = ypos;
       this.width = width;
       this.height = height;
-      this.img = new Image();
-      this.img.src = "resources/dinnerDish.png"
+      this.imgPasta = new Image();
+      this.imgPasta.src = "resources/dinnerDish.png";
+      this.imgPizza = new Image();
+      this.imgPizza.src = "resources/Pizza.png";
+      this.imgLasagna = new Image();
+      this.imgLasagna.src = "resources/Lasagna.png";
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
@@ -25,6 +29,8 @@ class Dinner
       this.served = false
       this.newPosX = 0
       this.newPosY = 0
+      var rndNum;
+      this.rndNum = Math.floor(Math.random()*3);
 
    }
    /**
@@ -135,7 +141,18 @@ class Dinner
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
+     console.log(this.rndNum);
+     if (this.rndNum === 0 )
+     {
+       ctx.drawImage(this.imgPasta, this.x, this.y, this.width, this.height);
+     }
+     if (this.rndNum ===1 )
+     {
+       ctx.drawImage(this.imgPizza, this.x, this.y, this.width, this.height);
+     }
+     if (this.rndNum === 2 )
+     {
+       ctx.drawImage(this.imgLasagna, this.x, this.y, this.width, this.height);
+     }
    }
  }

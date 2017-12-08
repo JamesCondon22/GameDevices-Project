@@ -1,5 +1,6 @@
 /**
  * @author James Condon
+ * @author Conor O'Toole
  * C00207200
  * The title scene class which is a child of the scene class
  */
@@ -26,11 +27,11 @@ class TitleScene
     var ctx = mycanvas.getContext("2d");
     document.body.style.background = "#800";
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
-    ctx.font = '48px serif';
-    ctx.fillText(this.title, 10, 50);
+    ctx.font = '100px serif'; //48
+    ctx.fillText(this.title, 30, 80);
     gameNs.scenetitle = this.title;
-    ctx.drawImage(this.imgMan, 100, 100, 500, 800);
-    ctx.drawImage(this.imgLogo, 0, 700, 500, 100);
+    ctx.drawImage(this.imgMan, 100, 100, 600, 1000);
+    ctx.drawImage(this.imgLogo, 0, 1100, 1000, 300);
   }
 
 }
