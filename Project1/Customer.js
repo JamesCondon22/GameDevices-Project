@@ -23,7 +23,8 @@ class Customer
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
       this.touching = false;
-      this.seatedFirst = false
+      this.seatedFirst = false;
+      this.seatedSecond = false;
    }
    /**
     * @param {Date} deltaTime time
@@ -31,15 +32,23 @@ class Customer
     * the count is incremented. the count is multiplied by the image
     * width. when the count is more than length of the spritesheet its reset
     */
-   update()
+   update(number)
    {
-
+     console.log(number)
      if (this.checkCollision(gameNs.tableOne))
      {
-       if (!gameNs.tableOne.tableFull && !gameNs.tableOne.seatOneFull)
+       if (!gameNs.tableOne.seatOneFull)
        {
          this.seatOne()
+         gameNs.tableOne.seatOneFull = true
+         
        }
+       else
+       {
+         this.seatTwo()
+
+       }
+
        //if (!gameNs.tableOne.tableFull && gameNs.tableOne.seatOneFull && !gameNs.tableOne.seatTwoFull)
       // {
       //   this.seatTwo()
@@ -73,7 +82,7 @@ class Customer
  	   this.touches = e.changedTouches;
  	   this.endX = this.touches[0].clientX;
  	   this.endY = this.touches[0].clientY;
-     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst)
+     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst && !this.seatedSecond)
      {
        console.log("collide")
         this.px = this.endX - 75;
@@ -108,16 +117,15 @@ class Customer
   {
     this.px = gameNs.tableOne.seat[0].x
     this.py = gameNs.tableOne.seat[0].y - 30
-    this.seatedFirst = true
-    //gameNs.tableOne.seatOneFull = true
+    //this.seated = true
+
   }
   seatTwo()
   {
     this.px = gameNs.tableOne.seat[1].x
     this.py = gameNs.tableOne.seat[1].y
+    //this.seatedSecond = true
 
-    gameNs.tableOne.seatTwoFull = true
-    gameNs.tableOne.tableFull = true
   }
 
    render()

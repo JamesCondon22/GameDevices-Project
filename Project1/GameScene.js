@@ -73,6 +73,7 @@ class GameScene
 
     if (gameNs.player.move === true)
     {
+
           gameNs.player.update(dt);
     }
     console.log(this.index)
@@ -84,7 +85,14 @@ class GameScene
 
     //this.insertCustomer();
     gameNs.dinner.update();
-    gameNs.customer[0].update()
+    for (var i = 0; i < this.noOfCustomers; i++)
+    {
+      
+        gameNs.customer[i].update(this.noOfCustomers)
+
+
+    }
+
     this.gameTimer();
     this.render();
 
@@ -242,7 +250,7 @@ class GameScene
      this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
 
      // if statement for assigning minutes after 59 seconds
-    
+
 
 
 
