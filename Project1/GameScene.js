@@ -77,6 +77,7 @@ class GameScene
 
     if (gameNs.player.move === true)
     {
+
           gameNs.player.update(dt);
     }
     console.log(this.index)
@@ -93,6 +94,7 @@ class GameScene
       gameNs.customer[i].update();
     }
 
+    //The dinners arrray update
     for (var i = 0; i < this.noOfdinners; i++)
     {
       gameNs.dinners[i].update();

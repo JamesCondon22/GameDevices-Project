@@ -94,6 +94,30 @@ class Dinner
        this.collected = false
        this.served = true
     }
+    if(this.collected === true && gameNs.player.atTableTwo === true && gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
+    {
+       this.newPosX = gameNs.tableTwo.x
+       this.newPosY = gameNs.tableTwo.y
+       //console.log("hit")
+       this.collected = false
+       this.served = true
+    }
+    if(this.collected === true && gameNs.player.atTableThree === true && gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, gameNs.startX, gameNs.startY, gameNs.tableThree.width, gameNs.tableThree.height))
+    {
+       this.newPosX = gameNs.tableThree.x
+       this.newPosY = gameNs.tableThree.y
+       //console.log("hit")
+       this.collected = false
+       this.served = true
+    }
+    if(this.collected === true && gameNs.player.atTableFour === true && gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, gameNs.startX, gameNs.startY, gameNs.tableFour.width, gameNs.tableFour.height))
+    {
+       this.newPosX = gameNs.tableFour.x
+       this.newPosY = gameNs.tableFour.y
+       //console.log("hit")
+       this.collected = false
+       this.served = true
+    }
 
  	   this.endX = this.touches[0].clientX;
   	 this.endY = this.touches[0].clientY;
