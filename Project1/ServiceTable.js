@@ -17,7 +17,7 @@ class ServiceTable
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/longTable.png"
+      this.img.src = "resources/service_table.png"
    }
    /**
     * @param {Date} deltaTime time

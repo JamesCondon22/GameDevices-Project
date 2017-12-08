@@ -49,7 +49,7 @@ class Customer
 
      {
        this.px = 500
-       this.py = 800
+       this.py = 1000
      }
      //console.log(this.touching)
    }
@@ -87,8 +87,8 @@ class Customer
    onTouchEnd(e)
    {
      this.touching = false
- 	   this.endX = this.touches[0].clientX;
-  	 this.endY = this.touches[0].clientY;
+ 	   this.endX = e.touches.clientX;
+  	 this.endY = e.touches.clientY;
    }
    checkCollision(e)
  	{

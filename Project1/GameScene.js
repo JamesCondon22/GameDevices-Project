@@ -12,16 +12,19 @@ class GameScene
   constructor(title)
   {
     this.title = title
+    this.index = 0
     gameNs.player = new Player(500,450, 100,180);
-    gameNs.customer = new Customer(500,800,100,180)
+    this.noOfCustomers = 1
+    gameNs.customer = [this.noOfCustomers]
+    gameNs.customer[0] = new Customer(500,1000,100,180)
     gameNs.dinner = new Dinner(50,50,50,50)
     gameNs.table = [4]
-    gameNs.tableOne= new Table(70,350,250,100);
-    gameNs.tableTwo= new Table(650,350,250,100);
-    gameNs.tableThree= new Table(70,750,250,90);
-    gameNs.tableFour= new Table(650,750,250,90);
-    gameNs.service = new ServiceTable(50,50,375,100);
-    gameNs.washing = new CleaningTable(600,50,375,100);
+    gameNs.tableOne= new Table(70,450,250,100);
+    gameNs.tableTwo= new Table(650,450,250,100);
+    gameNs.tableThree= new Table(70,900,250,90);
+    gameNs.tableFour= new Table(650,900,250,90);
+    gameNs.service = new ServiceTable(50,50,900,150);
+    //gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
     var seconds;
     var minutes;
@@ -43,9 +46,12 @@ class GameScene
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
     this.seconds = 0;
+    this.customerSeconds = 0
+    this.newHolder = 0
     this.minutes = 0;
     this.secHolder = 0;
     gameNs.previousTime = Date.now();
+
 
   }
 
@@ -53,29 +59,39 @@ class GameScene
   {
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
-
+    this.customerSeconds = this.customerSeconds + 1;
+    this.newHolder = Math.trunc(this.customerSeconds/60)
     if (gameNs.player.move === true){
       gameNs.player.movePlayer()
       //console.log("moving")
     }
-    console.log(gameNs.player.move)
+    //console.log(gameNs.player.move)
     var now = Date.now();
     var dt = (now - gameNs.previousTime);
+
     gameNs.previousTime = now;
+
     if (gameNs.player.move === true)
     {
           gameNs.player.update(dt);
     }
-    //consolegameNs.player.currentX
+    console.log(this.index)
+    if (this.newHolder >= 10)
+    {
+      this.insertCustomer();
+
+    }
+
+    //this.insertCustomer();
     gameNs.dinner.update();
-    gameNs.customer.update()
+    gameNs.customer[0].update()
     this.gameTimer();
     this.render();
 
 
 
-    console.log(gameNs.player.currentX+ ", "+gameNs.player.currentY)
-    console.log((gameNs.player.x + gameNs.player.width) + ", " + (gameNs.player.y + gameNs.player.height))
+    //console.log(gameNs.player.currentX+ ", "+gameNs.player.currentY)
+    //console.log((gameNs.player.x + gameNs.player.width) + ", " + (gameNs.player.y + gameNs.player.height))
   }
 /**
   * creates a canvas and context
@@ -97,10 +113,14 @@ class GameScene
     gameNs.tableFour.render();
 
     gameNs.service.render();
-    gameNs.washing.render();
+    //gameNs.washing.render();
     gameNs.player.render();
     gameNs.dinner.render();
-    gameNs.customer.render()
+    for (var i = 0; i < this.noOfCustomers; i ++)
+    {
+      gameNs.customer[i].render()
+    }
+
     ctx.font = '55px Arial';
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
@@ -123,7 +143,7 @@ class GameScene
 
 	   this.startX = this.touches[0].clientX;
 	   this.startY = this.touches[0].clientY;
-     if(gameNs.tableOne.checkCollisionBetween(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+     if(gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
      {
        //if (gameNs.player.atTableOne === false)
        //{
@@ -132,21 +152,21 @@ class GameScene
           gameNs.player.currentY= this.startY
        //}
      }
-     if(gameNs.tableTwo.checkCollisionBetween(gameNs.tableTwo.x, gameNs.tableTwo.y, this.startX, this.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
+     if(gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, this.startX, this.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
      {
        if (gameNs.player.atTableTwo === false)
        {gameNs.player.move  = true
        gameNs.player.currentX = this.startX
        gameNs.player.currentY= this.startY}
      }
-     if(gameNs.tableThree.checkCollisionBetween(gameNs.tableThree.x, gameNs.tableThree.y, this.startX, this.startY, gameNs.tableThree.width, gameNs.tableThree.height))
+     if(gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, this.startX, this.startY, gameNs.tableThree.width, gameNs.tableThree.height))
      {
        if (gameNs.player.atTableThree === false)
        {gameNs.player.move = true
        gameNs.player.currentX = this.startX
        gameNs.player.currentY= this.startY}
      }
-     if(gameNs.tableFour.checkCollisionBetween(gameNs.tableFour.x, gameNs.tableFour.y, this.startX, this.startY, gameNs.tableFour.width, gameNs.tableFour.height))
+     if(gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, this.startX, this.startY, gameNs.tableFour.width, gameNs.tableFour.height))
      {
        if (gameNs.player.atTableFour === false)
        {
@@ -231,5 +251,13 @@ class GameScene
 
    }
 
+   insertCustomer()
+   {
+     this.index+=1;
+     gameNs.customer[this.index] = new Customer(500,1000,100,180)
+     this.noOfCustomers+= 1;
+     this.newHolder = 0;
+     this.customerSeconds = 0
+   }
 
-}
+ }

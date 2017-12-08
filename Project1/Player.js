@@ -70,14 +70,15 @@ class Player
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     if (this.movingLeft === true)
-     ctx.drawImage(this.img, this.count * 135, 450, 130, 135, this.x, this.y, 130, 135);
+
      if (this.movingUp === true)
-     ctx.drawImage(this.img, this.count * 135, 300, 130, 135, this.x, this.y, 130, 135);
-     if (this.movingRight === true)
-     ctx.drawImage(this.img, this.count * 135, 150, 130, 135, this.x, this.y, 130, 135);
-     if (this.movingDown === true)
-     ctx.drawImage(this.img, this.count * 135, 0, 130, 135, this.x, this.y, 130, 135);
+     ctx.drawImage(this.img, this.count * 200, 500, 200, 215, this.x, this.y, 200, 215);
+     else if (this.movingLeft === true)
+     ctx.drawImage(this.img, this.count * 200, 750, 200, 215, this.x, this.y, 200, 215);
+     else if (this.movingRight === true)
+     ctx.drawImage(this.img, this.count * 200, 250, 200, 215, this.x, this.y, 200, 215);
+     else if (this.movingDown === true)
+     ctx.drawImage(this.img, this.count * 200, 0, 200, 215, this.x, this.y, 200, 215);
    }
 
 
@@ -160,16 +161,7 @@ class Player
      {
         this.atService = false;
      }
-     if (this.checkCollision(gameNs.washing))
-     {
-       this.move = false;
-       this.atWashing = true;
-       console.log("atWashing")
-     }
-     else
-     {
-       this.atWashing = false;
-     }
+
    }
 
    checkCollision(e)
@@ -178,8 +170,8 @@ class Player
 
  		if ((this.x < e.x + e.width) &&
  				(this.x + this.width > e.x) &&
- 				(this.y + this.height > e.y + 40) &&
- 				(this.y + 110 < e.y + e.height))
+ 				(this.y + this.height > e.y - 40) &&
+ 				(this.y < e.y))
  		{
  			collides = true;
  		}
