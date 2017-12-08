@@ -17,13 +17,19 @@ class Customer
       this.width = width;
       this.height = height;
       this.touched = false
+      this.img = new Image();
+      this.img.src = "resources/waiter.png"
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
+
       var seconds;
       var minutes;
       this.seconds = 0;
       this.minutes = 0;
+      this.touching = false;
+      this.seatedFirst = false
+
    }
    /**
     * @param {Date} deltaTime time
@@ -31,10 +37,27 @@ class Customer
     * the count is incremented. the count is multiplied by the image
     * width. when the count is more than length of the spritesheet its reset
     */
-   update(dt)
+   update()
    {
 
+     if (this.checkCollision(gameNs.tableOne))
+     {
+       if (!gameNs.tableOne.tableFull && !gameNs.tableOne.seatOneFull)
+       {
+         this.seatOne()
+       }
+       //if (!gameNs.tableOne.tableFull && gameNs.tableOne.seatOneFull && !gameNs.tableOne.seatTwoFull)
+      // {
+      //   this.seatTwo()
 
+     }
+     else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
+
+     {
+       this.px = 500
+       this.py = 1000
+     }
+     //console.log(this.touching)
    }
    detectHit(x1,y1,x2,y2,w,h)
    {
@@ -46,30 +69,58 @@ class Customer
    onTouchStart(e)
    {
      this.touches = e.touches;
-
+     this.touching = false
      this.startX = this.touches[0].clientX;
      this.startY = this.touches[0].clientY;
+
    }
    onTouchMove(e)
    {
  	   this.touches = e.changedTouches;
  	   this.endX = this.touches[0].clientX;
  	   this.endY = this.touches[0].clientY;
-     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) )
+     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst)
      {
        console.log("collide")
-        this.px = this.endX;
-        this.py = this.endY;
+        this.px = this.endX - 75;
+        this.py = this.endY - 50;
+        this.touching = true
+
       }
      this.startX = this.touches[0].clientX;
  	   this.startY = this.touches[0].clientY;
    }
    onTouchEnd(e)
    {
-
- 	   this.endX = this.touches[0].clientX;
-  	 this.endY = this.touches[0].clientY;
+     this.touching = false
+ 	   this.endX = e.touches.clientX;
+  	 this.endY = e.touches.clientY;
    }
+   checkCollision(e)
+ 	{
+ 		var collides = false;
+
+ 		if ((this.px < e.x + e.width) &&
+ 				(this.px + this.width > e.x) &&
+ 				(this.py + this.height > e.y) &&
+ 				(this.py < e.y + e.height))
+ 		{
+ 			collides = true;
+ 		}
+ 		return collides;
+ 	}
+
+  seatOne()
+  {
+    this.px = gameNs.tableOne.seat[0].x
+    this.py = gameNs.tableOne.seat[0].y - 30
+    this.seatedFirst = true
+    //gameNs.tableOne.seatOneFull = true
+  }
+  seatTwo()
+  {
+    this.px = gameNs.tableOne.seat[1].x
+    this.py = gameNs.tableOne.seat[1].y
 
    gameTimer()
     {
@@ -89,11 +140,15 @@ class Customer
 
     }
 
+    gameNs.tableOne.seatTwoFull = true
+    gameNs.tableOne.tableFull = true
+  }
+
    render()
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     ctx.fillRect(this.px, this.py, this.width,this.height);
+     ctx.drawImage(this.img,this.px, this.py, this.width,this.height);
 
    }
 

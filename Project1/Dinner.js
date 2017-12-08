@@ -82,7 +82,7 @@ class Dinner
    }
    onTouchEnd(e)
    {
-     if (gameNs.player.atService === true && this.detectHit(this.x, this.y, this.startX, this.startY, this.width, this.height))
+     if (gameNs.player.atService === true && this.checkCollisionBetween(gameNs.player.currentX, gameNs.player.currentY, 30, 30))
      {
        this.collected = true;
      }
@@ -98,6 +98,20 @@ class Dinner
  	   this.endX = this.touches[0].clientX;
   	 this.endY = this.touches[0].clientY;
    }
+
+   checkCollisionBetween(x,y,width,height)
+  {
+    var collides = false;
+
+    if ((this.x < x + width) &&
+        (this.x + this.width > x) &&
+        (this.y + this.height > y) &&
+        (this.y < y + height))
+    {
+      collides = true;
+    }
+    return collides;
+  }
 
    render()
    {

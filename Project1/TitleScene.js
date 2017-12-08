@@ -1,5 +1,6 @@
 /**
  * @author James Condon
+ * @author Conor O'Toole
  * C00207200
  * The title scene class which is a child of the scene class
  */

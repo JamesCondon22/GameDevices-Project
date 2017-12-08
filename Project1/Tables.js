@@ -17,7 +17,13 @@ class Table
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/tableCustomer.png"
+      this.img.src = "resources/new_table.png"
+      this.seat = [2]
+      this.seat[0] = new Seat(this.x - 90, this.y, 100,120)
+      this.seat[1] = new Seat(this.x + this.width - 20, this.y, 100,120)
+      this.seatOneFull = false;
+      this.seatTwoFull = false;
+      this.tableFull = false
       this.full = false;
    }
    /**
@@ -38,12 +44,28 @@ class Table
      if(y2-y1>h) return false;
      return true;
    }
+   checkCollisionBetween(x,y,width,height)
+  {
+    var collides = false;
+
+    if ((this.x < x + width) &&
+        (this.x + this.width > x) &&
+        (this.y + this.height > y) &&
+        (this.y  < y + height))
+    {
+      collides = true;
+    }
+    return collides;
+  }
 
    render()
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
+     for (var i = 0; i< 2; i++)
+     {
+       this.seat[i].render();
+     }
    }
  }

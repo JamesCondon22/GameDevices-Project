@@ -3,7 +3,7 @@
  * C00207200
  * The scene class parent of the other scenes
  */
-class ServiceTable
+class Seat
 {
   /**
    * @param {title} string
@@ -17,26 +17,10 @@ class ServiceTable
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/service_table.png"
+      this.img.src = "resources/stool.png"
+      this.full = false;
    }
-   /**
-    * @param {Date} deltaTime time
-    * updates the sprite by checking if the tick are less than the time
-    * the count is incremented. the count is multiplied by the image
-    * width. when the count is more than length of the spritesheet its reset
-    */
-   update(dt)
-   {
-
-
-   }
-   detectHit(x1,y1,x2,y2,w,h)
-   {
-     //Very simple detection here
-     if(x2-x1>w) return false;
-     if(y2-y1>h) return false;
-     return true;
-   }
+  
 
    render()
    {

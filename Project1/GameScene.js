@@ -12,16 +12,19 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    gameNs.player = new Player(0,250, 60,100);
-    gameNs.customer = new Customer(0,700,20,20)
-    gameNs.dinner = new Dinner(20,20,20,20)
+    this.index = 0
+    gameNs.player = new Player(500,450, 100,180);
+    this.noOfCustomers = 1
+    gameNs.customer = [this.noOfCustomers]
+    gameNs.customer[0] = new Customer(500,1000,100,180)
+    gameNs.dinner = new Dinner(50,50,50,50)
     gameNs.table = [4]
-    gameNs.tableOne= new Table(100,250,125,50);
-    gameNs.tableTwo= new Table(300,250,125,50);
-    gameNs.tableThree= new Table(100,500,125,50);
-    gameNs.tableFour= new Table(300,500,125,50);
-    gameNs.service = new ServiceTable(25,50,200,50);
-    gameNs.washing = new CleaningTable(275,50,200,50);
+    gameNs.tableOne= new Table(70,450,250,100);
+    gameNs.tableTwo= new Table(650,450,250,100);
+    gameNs.tableThree= new Table(70,900,250,90);
+    gameNs.tableFour= new Table(650,900,250,90);
+    gameNs.service = new ServiceTable(50,50,900,150);
+    //gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
     var seconds;
     var minutes;
@@ -43,8 +46,11 @@ class GameScene
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
     this.seconds = 0;
+    this.customerSeconds = 0
+    this.newHolder = 0
     this.minutes = 0;
     this.secHolder = 0;
+    gameNs.previousTime = Date.now();
 
 
   }
@@ -53,17 +59,39 @@ class GameScene
   {
     var canvas = document.getElementById('mycanvas');
 		var ctx = canvas.getContext('2d');
-
+    this.customerSeconds = this.customerSeconds + 1;
+    this.newHolder = Math.trunc(this.customerSeconds/60)
     if (gameNs.player.move === true){
       gameNs.player.movePlayer()
       //console.log("moving")
     }
-  //  console.log(gameNs.player.currentX +", " +gameNs.player.currentY)
+    //console.log(gameNs.player.move)
+    var now = Date.now();
+    var dt = (now - gameNs.previousTime);
+
+    gameNs.previousTime = now;
+
+    if (gameNs.player.move === true)
+    {
+          gameNs.player.update(dt);
+    }
+    console.log(this.index)
+    if (this.newHolder >= 10)
+    {
+      this.insertCustomer();
+
+    }
+
+    //this.insertCustomer();
     gameNs.dinner.update();
+    gameNs.customer[0].update()
     this.gameTimer();
     this.render();
-    console.log(gameNs.player.move)
-    //console.log(gameNs.player.move)
+
+
+
+    //console.log(gameNs.player.currentX+ ", "+gameNs.player.currentY)
+    //console.log((gameNs.player.x + gameNs.player.width) + ", " + (gameNs.player.y + gameNs.player.height))
   }
 /**
   * creates a canvas and context
@@ -77,7 +105,7 @@ class GameScene
     var ctx = mycanvas.getContext("2d");
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
-    gameNs.customer.render()
+
 
     gameNs.tableOne.render();
     gameNs.tableTwo.render();
@@ -85,9 +113,14 @@ class GameScene
     gameNs.tableFour.render();
 
     gameNs.service.render();
-    gameNs.washing.render();
+    //gameNs.washing.render();
     gameNs.player.render();
     gameNs.dinner.render();
+    for (var i = 0; i < this.noOfCustomers; i ++)
+    {
+      gameNs.customer[i].render()
+    }
+
     ctx.font = '55px Arial';
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
@@ -143,14 +176,9 @@ class GameScene
        }
 
      }
-     //if (gameNs.player.detectHit(gameNs.player.x, gameNs.player.y, gameNs.player.startX, gameNs.player.startY, gameNs.player.width, gameNs.player.height))
-     //{
-    //    gameNs.player.move = false
-     //}
 
 
-     console.log(this.startX + ' , ' + this.startY);
-     console.log(gameNs.player.x + ' , ' + gameNs.player.y);
+
   }
   onTouchMove(e)
   {
@@ -214,7 +242,7 @@ class GameScene
      this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
 
      // if statement for assigning minutes after 59 seconds
-    
+
 
 
 
@@ -223,5 +251,13 @@ class GameScene
 
    }
 
+   insertCustomer()
+   {
+     this.index+=1;
+     gameNs.customer[this.index] = new Customer(500,1000,100,180)
+     this.noOfCustomers+= 1;
+     this.newHolder = 0;
+     this.customerSeconds = 0
+   }
 
-}
+ }
