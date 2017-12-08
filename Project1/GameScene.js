@@ -12,12 +12,16 @@ class GameScene
   constructor(title)
   {
     this.title = title
+    this.xPos = 100;
     this.index = 0
+    this.dinnerIndex = 0
     gameNs.player = new Player(500,450, 100,180);
     this.noOfCustomers = 1
+    this.noOfdinners = 1
     gameNs.customer = [this.noOfCustomers]
+    gameNs.dinners = [this.noOfdinners]
     gameNs.customer[0] = new Customer(500,1000,100,180)
-    gameNs.dinner = new Dinner(50,50,50,50)
+    gameNs.dinners[0] = new Dinner(100,50,50,50)
     gameNs.table = [4]
     gameNs.tableOne= new Table(70,450,250,100);
     gameNs.tableTwo= new Table(650,450,250,100);
@@ -79,12 +83,20 @@ class GameScene
     if (this.newHolder >= 10)
     {
       this.insertCustomer();
+      this.insertDinner();
 
     }
 
     //this.insertCustomer();
-    gameNs.dinner.update();
-    gameNs.customer[0].update()
+    for (var i = 0; i < this.noOfCustomers; i++)
+    {
+      gameNs.customer[i].update();
+    }
+
+    for (var i = 0; i < this.noOfdinners; i++)
+    {
+      gameNs.dinners[i].update();
+    }
     this.gameTimer();
     this.render();
 
@@ -115,7 +127,10 @@ class GameScene
     gameNs.service.render();
     //gameNs.washing.render();
     gameNs.player.render();
-    gameNs.dinner.render();
+    for (var i = 0; i < this.noOfdinners; i++)
+    {
+      gameNs.dinners[i].render();
+    }
     for (var i = 0; i < this.noOfCustomers; i ++)
     {
       gameNs.customer[i].render()
@@ -258,6 +273,18 @@ class GameScene
      this.noOfCustomers+= 1;
      this.newHolder = 0;
      this.customerSeconds = 0
+   }
+
+   insertDinner()
+   {
+     this.dinnerIndex+=1;
+     gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50)
+     this.noOfdinners+=1;
+     this.xPos +=50
+     if (this.xPos >= this.width)
+     {
+       this.xPos = 100;
+     }
    }
 
  }
