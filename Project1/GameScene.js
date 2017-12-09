@@ -23,8 +23,8 @@ class GameScene
     gameNs.customer[0] = new Customer(500,1000,100,180)
     gameNs.dinners[0] = new Dinner(100,50,50,50)
     gameNs.table = [4]
-    gameNs.tableOne= new Table(70,450,250,100);
-    gameNs.tableTwo= new Table(650,450,250,100);
+    gameNs.tableOne = new Table(70,450,250,100);
+    gameNs.tableTwo = new Table(650,450,250,100);
     gameNs.tableThree= new Table(70,900,250,90);
     gameNs.tableFour= new Table(650,900,250,90);
     gameNs.service = new ServiceTable(50,50,900,150);

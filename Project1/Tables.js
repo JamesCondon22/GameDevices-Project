@@ -26,6 +26,7 @@ class Table
       this.tableFull = false
       this.full = false;
    }
+
    /**
     * @param {Date} deltaTime time
     * updates the sprite by checking if the tick are less than the time
