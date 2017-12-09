@@ -22,7 +22,7 @@ class EndScreen
     this.imgWinner.src = "resources/Winner.png";
     this.imgLogo = new Image();
     this.imgLogo.src = "resources/Logo.png";
-    var winner = false;
+    this.winner = false;
   }
 
   render()
@@ -31,14 +31,15 @@ class EndScreen
     var ctx = mycanvas.getContext("2d");
     document.body.style.background = "#800";
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
-    ctx.font = '100px serif'; //48
+    ctx.font = '200px VIVALDII.TFF'; //48
     ctx.fillText(this.title, 30, 80);
     gameNs.scenetitle = this.title;
     if (this.winner === false)
     {
         ctx.drawImage(this.imgLoser, 100, 100, 600, 1000);
     }
-    else {
+    else
+    {
       ctx.drawImage(this.imgWinner, 100, 100, 600, 1000);
     }
     ctx.drawImage(this.imgLogo, 0, 1100, 1000, 300);
