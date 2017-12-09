@@ -12,7 +12,7 @@ class GameScene
   constructor(title)
   {
     this.title = title
-    this.xPos = 100;
+    this.xPos = 200;
     this.index = 0
     this.dinnerIndex = 0
     gameNs.player = new Player(500,450, 100,180);
@@ -21,7 +21,7 @@ class GameScene
     gameNs.customer = [this.noOfCustomers]
     gameNs.dinners = [this.noOfdinners]
     gameNs.customer[0] = new Customer(500,1000,100,180)
-    gameNs.dinners[0] = new Dinner(100,50,50,50)
+    gameNs.dinners[0] = new Dinner(125,50,50,50)
     gameNs.table = [4]
     gameNs.tableOne = new Table(70,450,250,100);
     gameNs.tableTwo = new Table(650,450,250,100);
@@ -282,7 +282,7 @@ class GameScene
      this.dinnerIndex+=1;
      gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50)
      this.noOfdinners+=1;
-     this.xPos +=50
+     this.xPos +=75
      if (this.xPos >= this.width)
      {
        this.xPos = 100;

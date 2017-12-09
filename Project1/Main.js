@@ -40,12 +40,9 @@ function main()
       e.preventDefault();
     }
   }, { passive: false } );*/
+  
   draw(titlescene, main, game, endScene, sceneManager);
   update(sceneManager);
-
-
-
-
 }
 /**
  * Initialises the canvas - the drawing surface. The canvas
@@ -87,6 +84,11 @@ function update(sceneManager)
 function draw(sceneManager)
 {
   sceneManager.render();
+  if (gameNs.game.minutes >= 2)
+  {
+    sceneManager.goToNextScene()
+    sceneManager.render();
+  }
 
 }
 
@@ -94,6 +96,8 @@ function changeScene(e)
 {
   console.log("touched")
 }
+
+
 /**
   * @param {sceneManager} object object of type SceneManager
   * @param {e} event mouse click event
@@ -107,11 +111,7 @@ function clickHandler(sceneManager, e)
     sceneManager.render();
   }
 
-  if (gameNs.game.minutes === 1)
-  {
-    sceneManager.goToNextScene()
-    sceneManager.render();
-  }
+
 
 
 
