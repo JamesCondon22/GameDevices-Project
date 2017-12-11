@@ -19,6 +19,7 @@ function main()
   var main = new MenuScene('Main Scene',800,400);
   var game = new GameScene('Game Scene');
   var endScene = new EndScreen("Service is over")
+  var tutorial = new TutorialScene("Tutorial");
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -31,17 +32,13 @@ function main()
 
   sceneManager.addScene(titlescene);
   sceneManager.addScene(main);
+  sceneManager.addScene(tutorial);
   sceneManager.addScene(game);
   sceneManager.addScene(endScene);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
-  /*window.addEventListener('touchstart', function(e) {
-    if (e.targetTouches.length === 2) {
-      e.preventDefault();
-    }
-  }, { passive: false } );*/
-  
-  draw(titlescene, main, game, endScene, sceneManager);
+
+  draw(titlescene, main, tutorial, game, endScene, sceneManager);
   update(sceneManager);
 }
 /**
@@ -105,15 +102,10 @@ function changeScene(e)
   */
 function clickHandler(sceneManager, e)
 {
-  if (gameNs.playing == false)
+  if (gameNs.playing === false)
   {
     sceneManager.goToNextScene()
     sceneManager.render();
   }
-
-
-
-
-
 
 }

@@ -2,9 +2,8 @@
  * @author James Condon
  * C00207200
  * @author Conor O'Toole
- * The tutorial scene class which is a child of the scene class
- * this scene is to be played right before the game scene to explain
- * the games mechanics
+ * C00206724
+ * The game scene class which is a child of the scene class
  */
 class TutorialScene
 {
@@ -27,8 +26,11 @@ class TutorialScene
     gameNs.dinners[0] = new Dinner(125,50,50,50)
     gameNs.table = [4]
     gameNs.tableOne = new Table(70,450,250,100);
+    gameNs.tableTwo = new Table(650,450,250,100);
+    gameNs.tableThree= new Table(70,900,250,90);
+    gameNs.tableFour= new Table(650,900,250,90);
     gameNs.service = new ServiceTable(50,50,900,150);
-
+    //gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
     var seconds;
     var minutes;
@@ -49,8 +51,11 @@ class TutorialScene
     document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
 	  document.addEventListener("touchend", this.onTouchEnd, false);
     this.update = this.update.bind(this);
+    this.seconds = 0;
     this.customerSeconds = 0
-    this.newHolder = 0;
+    this.newHolder = 0
+    this.minutes = 0;
+    this.secHolder = 0;
     gameNs.previousTime = Date.now();
 
 
@@ -135,6 +140,10 @@ class TutorialScene
       gameNs.customer[i].render()
     }
 
+    ctx.font = '55px Arial';
+    ctx.fillText(this.minutes + ":",10,50)
+    ctx.fillText(this.secHolder, 60, 50);
+    ctx.fillText(" / 2:00", 110, 50);
     //gameNs.scenetitle = this.title;
 
 
@@ -237,6 +246,29 @@ class TutorialScene
   * @param {minutes} float minute counter
   * @param {secHolder} float place holder for calculating minutes based on seconds.
   */
+  gameTimer()
+   {
+     //This sets the time for the seconds based upon the update speed
+     this.seconds = this.seconds + 1;
+
+     // Wrapping the seconds back around to 0 once it reaches a minute
+     if (Math.trunc(this.seconds/60) >= 60 && Math.trunc(this.seconds/60) <= 61)
+     {
+       this.seconds = 0;
+       this.minutes += 1;
+     }
+
+     this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
+
+     // if statement for assigning minutes after 59 seconds
+
+
+
+
+
+
+
+   }
 
    insertCustomer()
    {

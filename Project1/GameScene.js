@@ -1,6 +1,8 @@
 /**
  * @author James Condon
  * C00207200
+ * @author Conor O'Toole
+ * C00206724
  * The game scene class which is a child of the scene class
  */
 class GameScene
