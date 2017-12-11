@@ -12,17 +12,26 @@ class GameScene
   constructor(title)
   {
     this.title = title
+    this.xPos = 200;
     this.index = 0
+    this.dinnerIndex = 0
     gameNs.player = new Player(500,450, 100,180);
     this.noOfCustomers = 1
+    this.noOfdinners = 1
     gameNs.customer = [this.noOfCustomers]
+<<<<<<< HEAD
     gameNs.customerTwo = [this.noOfCustomers]
     gameNs.customer[0] = new Customer(500,1000,100,180)
     gameNs.customerTwo[0] = new CustomerTwo(400,1000,100,180)
     gameNs.dinner = new Dinner(50,50,50,50)
+=======
+    gameNs.dinners = [this.noOfdinners]
+    gameNs.customer[0] = new Customer(500,1000,100,180)
+    gameNs.dinners[0] = new Dinner(125,50,50,50)
+>>>>>>> master
     gameNs.table = [4]
-    gameNs.tableOne= new Table(70,450,250,100);
-    gameNs.tableTwo= new Table(650,450,250,100);
+    gameNs.tableOne = new Table(70,450,250,100);
+    gameNs.tableTwo = new Table(650,450,250,100);
     gameNs.tableThree= new Table(70,900,250,90);
     gameNs.tableFour= new Table(650,900,250,90);
     gameNs.service = new ServiceTable(50,50,900,150);
@@ -84,6 +93,7 @@ class GameScene
     if (this.newHolder >= 10)
     {
       this.insertCustomer();
+      this.insertDinner();
 
     }
 
@@ -100,6 +110,11 @@ class GameScene
 
     }
 
+    //The dinners arrray update
+    for (var i = 0; i < this.noOfdinners; i++)
+    {
+      gameNs.dinners[i].update();
+    }
     this.gameTimer();
     this.render();
 
@@ -130,7 +145,10 @@ class GameScene
     gameNs.service.render();
     //gameNs.washing.render();
     gameNs.player.render();
-    gameNs.dinner.render();
+    for (var i = 0; i < this.noOfdinners; i++)
+    {
+      gameNs.dinners[i].render();
+    }
     for (var i = 0; i < this.noOfCustomers; i ++)
     {
       gameNs.customer[i].render()
@@ -252,6 +270,18 @@ class GameScene
      this.noOfCustomers+= 1;
      this.newHolder = 0;
      this.customerSeconds = 0
+   }
+
+   insertDinner()
+   {
+     this.dinnerIndex+=1;
+     gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50)
+     this.noOfdinners+=1;
+     this.xPos +=75
+     if (this.xPos >= this.width)
+     {
+       this.xPos = 100;
+     }
    }
 
  }
