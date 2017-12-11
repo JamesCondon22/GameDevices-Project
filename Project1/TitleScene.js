@@ -32,6 +32,7 @@ class TitleScene
     gameNs.scenetitle = this.title;
     ctx.drawImage(this.imgMan, 100, 100, 600, 1000);
     ctx.drawImage(this.imgLogo, 0, 1100, 1000, 300);
+
   }
 
 }

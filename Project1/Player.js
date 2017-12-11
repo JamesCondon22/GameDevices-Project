@@ -64,6 +64,11 @@ class Player
           }
             this.time =0;
         }
+        if (this.checkCollisionBetween(this.currentX, this.currentY, 10,10))
+        {
+          this.time = 0
+        }
+
    }
 
    render()

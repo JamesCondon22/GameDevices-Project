@@ -21,17 +21,23 @@ class GameScene
     this.noOfCustomers = 1
     this.noOfdinners = 1
     gameNs.customer = [this.noOfCustomers]
-    gameNs.dinners = [this.noOfdinners]
+
+    gameNs.customerTwo = [this.noOfCustomers]
     gameNs.customer[0] = new Customer(500,1000,100,180)
+    gameNs.customerTwo[0] = new CustomerTwo(400,1000,100,180)
+
     gameNs.dinners[0] = new Dinner(125,50,50,50)
+
     gameNs.table = [4]
     gameNs.tableOne = new Table(70,450,250,100);
     gameNs.tableTwo = new Table(650,450,250,100);
     gameNs.tableThree= new Table(70,900,250,90);
     gameNs.tableFour= new Table(650,900,250,90);
     gameNs.service = new ServiceTable(50,50,900,150);
+    this.background = new Background(0,0,1000,1500)
     //gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
+    this.SoundManager = new SoundManager()
     var seconds;
     var minutes;
     var secHolder
@@ -57,8 +63,8 @@ class GameScene
     this.minutes = 0;
     this.secHolder = 0;
     gameNs.previousTime = Date.now();
-
-
+    this.SoundManager.init();
+    this.SoundManager.loadSoundFile('ding', "resources/ding.mp3")
   }
 
   update()
@@ -90,10 +96,17 @@ class GameScene
 
     }
 
-    //this.insertCustomer();
+    gameNs.dinner.update();
     for (var i = 0; i < this.noOfCustomers; i++)
     {
-      gameNs.customer[i].update();
+        gameNs.customer[i].update(this.noOfCustomers)
+    }
+    for (var i = 0; i < this.noOfCustomers; i++)
+    {
+
+        gameNs.customerTwo[i].update(this.noOfCustomers)
+
+
     }
 
     //The dinners arrray update
@@ -122,7 +135,7 @@ class GameScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#987baa";
 
-
+    this.background.render();
     gameNs.tableOne.render();
     gameNs.tableTwo.render();
     gameNs.tableThree.render();
@@ -138,6 +151,10 @@ class GameScene
     for (var i = 0; i < this.noOfCustomers; i ++)
     {
       gameNs.customer[i].render()
+    }
+    for (var i = 0; i < this.noOfCustomers; i ++)
+    {
+      gameNs.customerTwo[i].render()
     }
 
     ctx.font = '55px Arial';
@@ -205,31 +222,13 @@ class GameScene
 
 	   this.endX = this.touches.clientX;
 	   this.endY = this.touches.clientY;
-     //if(gameNs.customer.detectHit(gameNs.px, gameNs.py, gameNs.startX, gameNs.startY, gameNs.width, gameNs.height) )
-     //{
 
-      //  gameNs.px = gameNs.endX;
-      //  gameNs.py = gameNs.endY;
-      //}
 	   this.startX = this.touches.clientX;
 	   this.startY = this.touches.clientY;
   }
 
   onTouchEnd(e)
   {
-
-
-
-
-
-    //if(gameNs.service.detectHit(gameNs.service.x, gameNs.service.y, gameNs.startX, gameNs.startY, gameNs.service.width, gameNs.service.height)&& gameNs.sceneManager.getScene() == "Game Scene") {
-
-    //   gameNs.move = true
-    // }
-    // if(gameNs.washing.detectHit(gameNs.washing.x, gameNs.washing.y, gameNs.startX, gameNs.startY, gameNs.washing.width, gameNs.washing.height)&& gameNs.sceneManager.getScene() == "Game Scene") {
-//
-//gameNs.move = true
-    //  }
 
 
      var touches = e.touches
@@ -260,20 +259,13 @@ class GameScene
 
      this.secHolder = Math.trunc(this.seconds/60) //A variable thats assigned the seconds to calculate the minutes
 
-     // if statement for assigning minutes after 59 seconds
-
-
-
-
-
-
-
    }
 
    insertCustomer()
    {
      this.index+=1;
      gameNs.customer[this.index] = new Customer(500,1000,100,180)
+     gameNs.customerTwo[this.index] = new CustomerTwo(400,1000,100,180)
      this.noOfCustomers+= 1;
      this.newHolder = 0;
      this.customerSeconds = 0
