@@ -25,7 +25,7 @@ class GameScene
     gameNs.customerTwo = [this.noOfCustomers]
     gameNs.customer[0] = new Customer(500,1000,100,180)
     gameNs.customerTwo[0] = new CustomerTwo(400,1000,100,180)
-
+    gameNs.dinners = [this.noOfdinners];
     gameNs.dinners[0] = new Dinner(125,50,50,50)
 
     gameNs.table = [4]
@@ -96,7 +96,7 @@ class GameScene
 
     }
 
-    gameNs.dinner.update();
+
     for (var i = 0; i < this.noOfCustomers; i++)
     {
         gameNs.customer[i].update(this.noOfCustomers)
