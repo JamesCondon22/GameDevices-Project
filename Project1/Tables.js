@@ -35,7 +35,7 @@ class Table
    update(dt)
    {
 
-
+     //if (this.seatOneFull && this.seatTwoFull)
    }
    detectHit(x1,y1,x2,y2,w,h)
    {

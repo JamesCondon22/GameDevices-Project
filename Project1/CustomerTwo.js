@@ -3,7 +3,7 @@
  * C00207200
  * The scene class parent of the other scenes
  */
-class Customer
+class CustomerTwo
 {
   /**
    * @param {title} string
@@ -42,32 +42,32 @@ class Customer
      console.log(number)
      if (this.checkCollision(gameNs.tableOne))
      {
-         this.seatAtOne(gameNs.tableOne.seat[0])
-         gameNs.tableOne.seatOneFull = true
-         this.seatedFirst = true
+         this.seatAtOne(gameNs.tableOne.seat[1])
+         gameNs.tableOne.seatTwoFull = true
+         this.seatedSecond = true
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
-         this.seatAtOne(gameNs.tableTwo.seat[0])
-         gameNs.tableTwo.seatOneFull = true
-         this.seatedFirst = true
+         this.seatAtOne(gameNs.tableTwo.seat[1])
+         gameNs.tableTwo.seatTwoFull = true
+         this.seatedSecond = true
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
-         this.seatAtOne(gameNs.tableThree.seat[0])
-         gameNs.tableThree.seatOneFull = true
-         this.seatedFirst = true
+         this.seatAtOne(gameNs.tableThree.seat[1])
+         gameNs.tableThree.seatTwoFull = true
+         this.seatedSecond = true
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
-         this.seatAtOne(gameNs.tableFour.seat[0])
-         gameNs.tableFour.seatOneFull = true
-         this.seatedFirst = true
+         this.seatAtOne(gameNs.tableFour.seat[1])
+         gameNs.tableFour.seatTwoFull = true
+         this.seatedSecond = true
      }
      else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
 
      {
-       this.px = 500
+       this.px = 400
        this.py = 1000
      }
      //console.log(this.touching)
@@ -92,7 +92,7 @@ class Customer
  	   this.touches = e.changedTouches;
  	   this.endX = this.touches[0].clientX;
  	   this.endY = this.touches[0].clientY;
-     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst)
+     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedSecond )
      {
        console.log("collide")
         this.px = this.endX - 75;
@@ -122,6 +122,7 @@ class Customer
  		}
  		return collides;
  	}
+
 
   seatAtOne(table)
   {
