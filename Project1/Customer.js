@@ -39,30 +39,33 @@ class Customer
     */
    update(number)
    {
-     console.log(number)
      if (this.checkCollision(gameNs.tableOne))
      {
          this.seatAtOne(gameNs.tableOne.seat[0])
          gameNs.tableOne.seatOneFull = true
          this.seatedFirst = true
+         gameNs.game.movedCustomer = true
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
          this.seatAtOne(gameNs.tableTwo.seat[0])
          gameNs.tableTwo.seatOneFull = true
          this.seatedFirst = true
+         gameNs.game.movedCustomer = true
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
          this.seatAtOne(gameNs.tableThree.seat[0])
          gameNs.tableThree.seatOneFull = true
          this.seatedFirst = true
+         gameNs.game.movedCustomer = true
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
          this.seatAtOne(gameNs.tableFour.seat[0])
          gameNs.tableFour.seatOneFull = true
          this.seatedFirst = true
+         gameNs.game.movedCustomer = true
      }
      else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
 

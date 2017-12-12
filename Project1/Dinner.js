@@ -45,6 +45,7 @@ class Dinner
       {
         this.x = gameNs.player.x;
         this.y = gameNs.player.y;
+        gameNs.game.foodCollected = true;
       }
       if (this.served === true)
       {
@@ -141,7 +142,6 @@ class Dinner
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     console.log(this.rndNum);
      if (this.rndNum === 0 )
      {
        ctx.drawImage(this.imgPasta, this.x, this.y, this.width, this.height);

@@ -160,6 +160,7 @@ class Player
      {
        this.move = false;
        this.atService = true;
+       gameNs.game.movedPlayer = true;
        console.log("atService")
      }
      else

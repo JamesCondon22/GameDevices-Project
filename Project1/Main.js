@@ -18,8 +18,7 @@ function main()
   var titlescene = new TitleScene('Time to get to work!');
   var main = new MenuScene('Main Scene',800,400);
   var game = new GameScene('Game Scene');
-  var endScene = new EndScreen("Service is over")
-  var tutorial = new TutorialScene("Tutorial");
+  var endScene = new EndScreen("Service is over");
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -32,13 +31,12 @@ function main()
 
   sceneManager.addScene(titlescene);
   sceneManager.addScene(main);
-  sceneManager.addScene(tutorial);
   sceneManager.addScene(game);
   sceneManager.addScene(endScene);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
 
-  draw(titlescene, main, tutorial, game, endScene, sceneManager);
+  draw(titlescene, main, game, endScene, sceneManager);
   update(sceneManager);
 }
 /**

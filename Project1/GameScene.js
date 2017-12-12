@@ -42,12 +42,13 @@ class GameScene
     var minutes;
     var secHolder
 
+    //Tutorial variables
+    this.movedPlayer = false;
+    this.movedCustomer = false;
+    this.foodCollected = false;
+    this.foodAtTable = false;
+    this.tutorialOver = false;
   }
-
-
-
-
-
 
   initWorld()
   {
@@ -88,8 +89,8 @@ class GameScene
 
           gameNs.player.update(dt);
     }
-    console.log(this.index)
-    if (this.newHolder >= 10)
+
+    if (this.newHolder >= 10 && this.tutorialOver === true)
     {
       this.insertCustomer();
       this.insertDinner();
@@ -114,7 +115,10 @@ class GameScene
     {
       gameNs.dinners[i].update();
     }
-    this.gameTimer();
+    if (this.tutorialOver === true)
+    {
+      this.gameTimer();
+    }
     this.render();
 
 
@@ -161,7 +165,35 @@ class GameScene
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
     ctx.fillText(" / 2:00", 110, 50);
-    //gameNs.scenetitle = this.title;
+
+    if (this.movedCustomer === false)
+    {
+      ctx.fillText("Drag the customers to a Table", 10,800);
+    }
+    if (this.movedCustomer === true && this.movedPlayer === false)
+    {
+      ctx.fillText("Point and click Trump towards the food", 10,800);
+    }
+    if (this.movedPlayer === true && gameNs.player.atService === true && gameNs.dinners[0].collected === false)
+    {
+      ctx.fillText("Collect food from the service by", 10,785);
+      ctx.fillText("touching it", 100,830);
+    }
+    if (this.foodCollected === true)
+    {
+      if (gameNs.player.atTableOne === false && gameNs.player.atTableTwo === false && gameNs.player.atTableThree === false && gameNs.player.atTableFour === false)
+      {
+        ctx.fillText("point and click trump to the full table", 10,785);
+        ctx.fillText("(avoid the tables)", 100,830);
+      }
+    }
+    if(gameNs.player.atTableOne === true || gameNs.player.atTableTwo === true || gameNs.player.atTableThree === true || gameNs.player.atTableFour === true)
+    {
+      if (this.foodCollected === true)
+          {
+            ctx.fillText("Touch the table to serve the food", 10,850);
+          }
+    }
 
 
   }
