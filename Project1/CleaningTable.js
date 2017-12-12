@@ -1,6 +1,8 @@
 /**
  * @author James Condon
  * C00207200
+ * @author Conor O'Toole
+ * C00206724
  * The scene class parent of the other scenes
  */
 class CleaningTable
