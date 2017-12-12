@@ -10,14 +10,14 @@ class ServiceTable
    * This is the constructor for the scene class
    * This sets the title to the scene
    */
-   constructor(xpos,ypos,width,height)
+   constructor(xpos,ypos,width,height,image)
    {
       this.x = xpos;
       this.y = ypos;
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/service_table.png"
+      this.img.src = image
    }
    /**
     * @param {Date} deltaTime time

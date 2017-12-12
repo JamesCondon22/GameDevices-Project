@@ -11,7 +11,7 @@ function SoundManager()
 }
 
 
-SoundManager.prototype.playSound = function(name, loop)
+SoundManager.prototype.playSound = function(name, loop, value)
 {
   console.log(this.audioBuffers[name]);
   if(this.audioBuffers[name] == undefined)

@@ -17,6 +17,7 @@ class CustomerTwo
       this.width = width;
       this.height = height;
       this.touched = false
+      this.alive = true;
       this.img = new Image();
       this.img.src = "resources/waiter.png"
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
@@ -39,37 +40,53 @@ class CustomerTwo
     */
    update(number)
    {
-     console.log(number)
+     //console.log(number)
      if (this.checkCollision(gameNs.tableOne))
      {
+       if (!gameNs.tableOne.tableFull)
+       {
          this.seatAtOne(gameNs.tableOne.seat[1])
          gameNs.tableOne.seatTwoFull = true
          this.seatedSecond = true
+       }
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
+       if (!gameNs.tableTwo.tableFull)
+       {
          this.seatAtOne(gameNs.tableTwo.seat[1])
          gameNs.tableTwo.seatTwoFull = true
          this.seatedSecond = true
+       }
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
+       if (!gameNs.tableThree.tableFull)
+       {
          this.seatAtOne(gameNs.tableThree.seat[1])
          gameNs.tableThree.seatTwoFull = true
          this.seatedSecond = true
+       }
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
+       if (!gameNs.tableFour.tableFull)
+       {
          this.seatAtOne(gameNs.tableFour.seat[1])
          gameNs.tableFour.seatTwoFull = true
          this.seatedSecond = true
+       }
      }
-     else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
 
-     {
-       this.px = 400
-       this.py = 1000
-     }
+     else if (!this.checkCollision(gameNs.tableOne) && this.touching === false ||
+        !this.checkCollision(gameNs.tableTwo) && this.touching === false ||
+        !this.checkCollision(gameNs.tableThree) && this.touching === false ||
+        !this.checkCollision(gameNs.tableFour) && this.touching === false)
+        {
+          this.px = 400
+          this.py = 1000
+        }
+
      //console.log(this.touching)
    }
    detectHit(x1,y1,x2,y2,w,h)
@@ -92,9 +109,9 @@ class CustomerTwo
  	   this.touches = e.changedTouches;
  	   this.endX = this.touches[0].clientX;
  	   this.endY = this.touches[0].clientY;
-     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedSecond )
+     if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedSecond)
      {
-       console.log("collide")
+       //console.log("collide")
         this.px = this.endX - 75;
         this.py = this.endY - 50;
         this.touching = true
@@ -135,6 +152,7 @@ class CustomerTwo
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
+     if (this.alive)
      ctx.drawImage(this.img,this.px, this.py, this.width,this.height);
 
    }

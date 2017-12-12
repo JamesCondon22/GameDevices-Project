@@ -10,7 +10,7 @@ class Player
    * This is the constructor for the scene class
    * This sets the title to the scene
    */
-   constructor(xpos,ypos,width,height)
+   constructor(xpos,ypos,width,height, image)
    {
       this.x = xpos;
       this.y = ypos;
@@ -21,7 +21,7 @@ class Player
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/ash.png"
+      this.img.src = image
       this.atTableOne = false;
       this.atTableTwo = false;
       this.atTableThree = false;
@@ -35,6 +35,7 @@ class Player
       this.movingLeft = false;
       this.movingUp = false;
       this.movingDown = false;
+      this.score = 0;
    }
    /**
     * @param {Date} deltaTime time

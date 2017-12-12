@@ -9,36 +9,34 @@ class GameScene
    * @param {title} string title of the MenuScene.
    * This construcor uses the keyword super to inherit from the Scene class
    */
-  constructor(title)
+  constructor(title, load)
   {
     this.title = title
     this.xPos = 200;
     this.index = 0
-    this.dinnerIndex = 0
-    gameNs.player = new Player(500,450, 100,180);
+    this.load = load
+    this.dinnerIndex = 1
+    this.count = 2
+    gameNs.player = new Player(500,450, 100,180, load['TrumpImg']);
     this.noOfCustomers = 1
-    this.noOfdinners = 1
+    this.noOfdinners = 2
     gameNs.customer = [this.noOfCustomers]
-<<<<<<< HEAD
     gameNs.customerTwo = [this.noOfCustomers]
     gameNs.customer[0] = new Customer(500,1000,100,180)
     gameNs.customerTwo[0] = new CustomerTwo(400,1000,100,180)
-    gameNs.dinner = new Dinner(50,50,50,50)
-=======
     gameNs.dinners = [this.noOfdinners]
-    gameNs.customer[0] = new Customer(500,1000,100,180)
-    gameNs.dinners[0] = new Dinner(125,50,50,50)
->>>>>>> master
+    gameNs.dinners[0] = new Dinner(125,50,50,50,load)
+    gameNs.dinners[1] = new Dinner(200,50,50,50,load)
     gameNs.table = [4]
-    gameNs.tableOne = new Table(70,450,250,100);
-    gameNs.tableTwo = new Table(650,450,250,100);
-    gameNs.tableThree= new Table(70,900,250,90);
-    gameNs.tableFour= new Table(650,900,250,90);
-    gameNs.service = new ServiceTable(50,50,900,150);
+    gameNs.tableOne = new Table(70,450,250,100, load['TableImg']);
+    gameNs.tableTwo = new Table(650,450,250,100, load['TableImg']);
+    gameNs.tableThree= new Table(70,900,250,90, load['TableImg']);
+    gameNs.tableFour= new Table(650,900,250,90, load['TableImg']);
+    gameNs.service = new ServiceTable(50,50,900,150, load['ServiceTableImg']);
     this.background = new Background(0,0,1000,1500)
     //gameNs.washing = new CleaningTable(600,50,375,100);
     gameNs.playing = true;
-    this.SoundManager = new SoundManager()
+    gameNs.soundManager = new SoundManager()
     var seconds;
     var minutes;
     var secHolder
@@ -64,8 +62,9 @@ class GameScene
     this.minutes = 0;
     this.secHolder = 0;
     gameNs.previousTime = Date.now();
-    this.SoundManager.init();
-    this.SoundManager.loadSoundFile('ding', "resources/ding.mp3")
+    gameNs.soundManager.init();
+    gameNs.soundManager.loadSoundFile('ding', "resources/ding.mp3")
+    gameNs.soundManager.loadSoundFile('served', "resources/served.mp3")
   }
 
   update()
@@ -89,25 +88,20 @@ class GameScene
 
           gameNs.player.update(dt);
     }
-    console.log(this.index)
-    if (this.newHolder >= 10)
+    //console.log(this.index)
+    if (this.newHolder >= 10 && this.count <= 8)
     {
       this.insertCustomer();
-      this.insertDinner();
-
+      this.insertDinner()
     }
-
-    gameNs.dinner.update();
+  //  console.log(this.count)
     for (var i = 0; i < this.noOfCustomers; i++)
     {
         gameNs.customer[i].update(this.noOfCustomers)
     }
     for (var i = 0; i < this.noOfCustomers; i++)
     {
-
         gameNs.customerTwo[i].update(this.noOfCustomers)
-
-
     }
 
     //The dinners arrray update
@@ -120,8 +114,26 @@ class GameScene
 
 
 
-    //console.log(gameNs.player.currentX+ ", "+gameNs.player.currentY)
-    //console.log((gameNs.player.x + gameNs.player.width) + ", " + (gameNs.player.y + gameNs.player.height))
+    if (gameNs.tableOne.seatOneFull && gameNs.tableOne.seatTwoFull)
+    {
+      gameNs.tableOne.tableFull = true
+
+    }
+    if (gameNs.tableTwo.seatOneFull && gameNs.tableTwo.seatTwoFull)
+    {
+      gameNs.tableTwo.tableFull = true
+
+    }
+    if (gameNs.tableThree.seatOneFull && gameNs.tableThree.seatTwoFull)
+    {
+      gameNs.tableThree.tableFull = true
+
+    }
+    if (gameNs.tableFour.seatOneFull && gameNs.tableFour.seatTwoFull)
+    {
+      gameNs.tableFour.tableFull = true
+
+    }
   }
 /**
   * creates a canvas and context
@@ -230,14 +242,9 @@ class GameScene
 
   onTouchEnd(e)
   {
-
-
      var touches = e.touches
 	   this.endX = touches.clientX;
  	   this.endY = touches.clientY;
-
-
-
   }
 
   /**
@@ -270,14 +277,21 @@ class GameScene
      this.noOfCustomers+= 1;
      this.newHolder = 0;
      this.customerSeconds = 0
+     gameNs.soundManager.playSound('ding', false, 0.5);
    }
 
    insertDinner()
    {
+     this.count += 2
      this.dinnerIndex+=1;
-     gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50)
-     this.noOfdinners+=1;
      this.xPos +=75
+     gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50, this.load)
+     this.noOfdinners+=1;
+     this.dinnerIndex+=1;
+     this.xPos +=75
+     gameNs.dinners[this.dinnerIndex] = new Dinner(this.xPos,50,50,50, this.load)
+     this.noOfdinners+=1;
+
      if (this.xPos >= this.width)
      {
        this.xPos = 100;

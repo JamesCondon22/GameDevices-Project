@@ -12,13 +12,13 @@
   */
 var gameNs = {};
 
-function main()
+function main(load)
 {
   initCanvas();
   var titlescene = new TitleScene('Time to get to work!');
-  var main = new MenuScene('Main Scene',800,400);
-  var game = new GameScene('Game Scene');
-  var endScene = new EndScreen("Service is over")
+  var main = new MenuScene('Main Scene',800,400, load);
+  var game = new GameScene('Game Scene', load);
+  var endScene = new EndScreen("Service is over",load)
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -40,7 +40,7 @@ function main()
       e.preventDefault();
     }
   }, { passive: false } );*/
-  
+
   draw(titlescene, main, game, endScene, sceneManager);
   update(sceneManager);
 }
