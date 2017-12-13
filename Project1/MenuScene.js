@@ -12,13 +12,13 @@ class MenuScene
   constructor(title,width,height,load)
   {
     this.title = title
-    gameNs.playing = false;
+    gameNs.playing = true;
     this.width = width;
     this.height = height;
     this.imgPlay = new Image();
     this.imgPlay.src = load['PlayBtn']
-    this.imgOptions = new Image();
-    this.imgOptions.src = load['OptionBtn']
+    this.imgMute = new Image();
+    this.imgMute.src = load['MuteBtn']
     this.imgExit = new Image();
     this.imgExit.src = load['ExitBtn']
 
@@ -40,7 +40,7 @@ class MenuScene
     document.body.style.background = "#0C8100";
     ctx.font = '35px Corbel';
     ctx.drawImage(this.imgPlay, 70, 50, this.width, this.height);
-    ctx.drawImage(this.imgOptions, 70, 500, this.width, this.height);
+    ctx.drawImage(this.imgMute, 70, 500, this.width, this.height);
     ctx.drawImage(this.imgExit, 70, 950, this.width, this.height);
     //document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
     //this.collisionPlay();

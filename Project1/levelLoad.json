@@ -3,7 +3,7 @@
   "StoolImg" : "resources/stool.png",
   "TableImg" : "resources/new_table.png",
   "ServiceTableImg" : "resources/service_table.png",
-  "OptionBtn" : "resources/buttonOptions.png",
+  "MuteBtn" : "resources/buttonMute.png",
   "ExitBtn" : "resources/buttonExit.png",
   "PlayBtn" : "resources/buttonPlay.png",
   "FatTonyImg" : "resources/FatTony.png",
