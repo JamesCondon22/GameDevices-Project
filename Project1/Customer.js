@@ -41,7 +41,6 @@ class Customer
     */
    update(number)
    {
-     //console.log(number)
      if (this.checkCollision(gameNs.tableOne))
      {
          if (!gameNs.tableOne.tableFull)

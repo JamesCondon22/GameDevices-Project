@@ -45,12 +45,15 @@ class GameScene
     var minutes;
     var secHolder
 
+    //Tutorial variables
+    this.movedPlayer = false;
+    this.movedCustomer = false;
+    this.foodCollected = false;
+    this.foodAtTable = false;
+    this.collectMoney = false;
+    this.moneyCollected = false;
+    this.tutorialOver = false;
   }
-
-
-
-
-
 
   initWorld()
   {
@@ -98,15 +101,16 @@ class GameScene
 
           gameNs.player.update(dt);
     }
-    //console.log(this.index)
-    if (this.newHolder >= 10 && this.count <= 6)
+
+    if (this.newHolder >= 10 && this.count <= 8 && this.tutorialOver === true)
     {
       this.insertCustomer();
       this.insertDinner()
+    }
 
       //gameNs.sceneManager.goToScene("Service is over");
 
-    }
+    
     for (var i = 0; i < this.noOfCustomers; i++)
     {
         gameNs.customer[i].update(this.noOfCustomers)
@@ -127,7 +131,10 @@ class GameScene
     {
       gameNs.dinners[i].update();
     }
-    this.gameTimer();
+    if (this.tutorialOver === true)
+    {
+      this.gameTimer();
+    }
     this.render();
 
 
@@ -135,20 +142,25 @@ class GameScene
     if (gameNs.tableOne.seatOneFull && gameNs.tableOne.seatTwoFull)
     {
       gameNs.tableOne.tableFull = true
+      this.movedCustomer = true
+
     }
     if (gameNs.tableTwo.seatOneFull && gameNs.tableTwo.seatTwoFull)
     {
       gameNs.tableTwo.tableFull = true
+      this.movedCustomer = true
 
     }
     if (gameNs.tableThree.seatOneFull && gameNs.tableThree.seatTwoFull)
     {
       gameNs.tableThree.tableFull = true
+      this.movedCustomer = true
 
     }
     if (gameNs.tableFour.seatOneFull && gameNs.tableFour.seatTwoFull)
     {
       gameNs.tableFour.tableFull = true
+      this.movedCustomer = true
 
     }
     //console.log(this.scoreHolder)
@@ -208,6 +220,57 @@ class GameScene
     //gameNs.scenetitle = this.title;
 
 
+    if (this.tutorialOver === false)
+    {
+        if (this.movedCustomer === false)
+        {
+          ctx.fillText("Drag the customers to a Table", 10,800);
+        }
+        if (this.movedCustomer === true && this.movedPlayer === false)
+        {
+          ctx.fillText("Point and click Trump towards the food", 10,800);
+        }
+        if (this.movedPlayer === true && gameNs.player.atService === true && gameNs.dinners[0].collected === false && this.movedCustomer === true)
+        {
+          ctx.fillText("Collect food from the service by", 10,785);
+          ctx.fillText("touching it", 100,830);
+        }
+        if (this.foodCollected === true && this.movedCustomer === true)
+        {
+          if (gameNs.player.atTableOne === false && gameNs.player.atTableTwo === false && gameNs.player.atTableThree === false && gameNs.player.atTableFour === false)
+          {
+            ctx.fillText("point and click trump to the full table", 10,785);
+            ctx.fillText("(avoid the tables)", 100,830);
+          }
+        }
+        if (this.foodCollected === true)
+        {
+          if (this.foodAtTable === false && this.collectMoney === false)
+          {
+            if(gameNs.player.atTableOne === true || gameNs.player.atTableTwo === true || gameNs.player.atTableThree === true || gameNs.player.atTableFour === true)
+                {
+                  ctx.fillText("Touch the table to serve the food", 10,850);
+                }
+          }
+        }
+
+        if (this.collectMoney === true)
+        {
+          ctx.fillText("Touch the table to collect the money", 10,850);
+        }
+
+        if (this.moneyCollected === true)
+        {
+
+          this.tutorialOver = true;
+
+        }
+      }
+
+      if (this.tutorialOver === true)
+      {
+          ctx.fillText("Begin!!", 820,50);
+      }
   }
   round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
