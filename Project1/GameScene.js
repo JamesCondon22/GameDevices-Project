@@ -166,6 +166,8 @@ class GameScene
     ctx.fillText(this.secHolder, 60, 50);
     ctx.fillText(" / 2:00", 110, 50);
 
+    if (this.tutorialOver === false)
+    {
     if (this.movedCustomer === false)
     {
       ctx.fillText("Drag the customers to a Table", 10,800);
@@ -194,7 +196,7 @@ class GameScene
             ctx.fillText("Touch the table to serve the food", 10,850);
           }
     }
-
+  }
 
   }
 
