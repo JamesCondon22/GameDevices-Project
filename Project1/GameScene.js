@@ -237,7 +237,7 @@ class GameScene
 
       if (this.tutorialOver === true)
       {
-          ctx.fillText("Begin!!", 850,50);
+          ctx.fillText("Begin!!", 820,50);
       }
   }
 
