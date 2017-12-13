@@ -229,10 +229,16 @@ class GameScene
 
         if (this.moneyCollected === true)
         {
+
           this.tutorialOver = true;
+
         }
       }
 
+      if (this.tutorialOver === true)
+      {
+          ctx.fillText("Begin!!", 850,50);
+      }
   }
 
   keyDownHandler(e)
