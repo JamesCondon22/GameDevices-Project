@@ -19,7 +19,6 @@ function main(load)
   var main = new MenuScene('Main Scene',800,400, load);
   var game = new GameScene('Game Scene', load);
   var endScene = new EndScreen("Service is over",load)
-  var tutorial = new TutorialScene("Tutorial");
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -28,28 +27,28 @@ function main(load)
   gameNs.playing = false
   gameNs.main = main
   gameNs.game = game;
-  gameNs.game.initWorld();
 
+  gameNs.soundManager = new SoundManager()
   sceneManager.addScene(titlescene);
   sceneManager.addScene(main);
-  sceneManager.addScene(tutorial);
   sceneManager.addScene(game);
   sceneManager.addScene(endScene);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
-<<<<<<< HEAD
   /*window.addEventListener('touchstart', function(e) {
     if (e.targetTouches.length === 2) {
       e.preventDefault();
     }
   }, { passive: false } );*/
-
+  gameNs.soundManager.init();
+  gameNs.soundManager.loadSoundFile('background', "resources/background.mp3")
+  gameNs.soundManager.loadSoundFile('ding', "resources/ding.mp3")
+  gameNs.soundManager.loadSoundFile('served', "resources/served.mp3")
+  gameNs.game.initWorld();
+  var seconds = 0;
+  var holder = 0;
   draw(titlescene, main, game, endScene, sceneManager);
-=======
-
-  draw(titlescene, main, tutorial, game, endScene, sceneManager);
->>>>>>> master
-  update(sceneManager);
+  update(sceneManager, seconds, holder);
 }
 /**
  * Initialises the canvas - the drawing surface. The canvas
@@ -60,6 +59,7 @@ function main(load)
  */
 function initCanvas()
 {
+
   // Use the document object to create a new element canvas.
  var canvas = document.createElement("canvas");
  // Assign the canvas an id so we can reference it elsewhere
@@ -70,17 +70,27 @@ function initCanvas()
  var ctx = canvas.getContext("2d");
  // Adds the canvas element to the document.
  document.body.appendChild(canvas);
+
+
 }
 
-function update(sceneManager)
+function update(sceneManager,seconds,holder)
 {
 
-  if (gameNs.sceneManager.getScene() === "Game Scene")
+  if (gameNs.sceneManager.getScene() === "Game Scene" && gameNs.game.winner === false)
   {
     gameNs.game.update()
     gameNs.playing = true
   }
+  if (gameNs.game.winner === true && gameNs.sceneManager.getScene() === "Game Scene")
+  {
+    gameNs.sceneManager.goToNextScene()
+    gameNs.sceneManager.render();
 
+  }
+
+  //console.log(gameNs.playing)
+//console.log(holder)
 
   window.requestAnimationFrame(this.update);
 }
@@ -90,12 +100,9 @@ function update(sceneManager)
   */
 function draw(sceneManager)
 {
+
   sceneManager.render();
-  if (gameNs.game.minutes >= 2)
-  {
-    sceneManager.goToNextScene()
-    sceneManager.render();
-  }
+
 
 }
 

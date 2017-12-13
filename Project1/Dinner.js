@@ -45,6 +45,7 @@ class Dinner
       this.holderThree = 0
       this.secondsFour = 0
       this.holderFour = 0
+      this.index = 0
       var rndNum;
       this.rndNum = Math.floor(Math.random()*3);
 
@@ -68,9 +69,13 @@ class Dinner
         this.holderOne = Math.trunc(this.secondsOne/60)
         if (this.holderOne > 5)
         {
+          var current = this.index;
           this.alive = false;
           this.servedTableOne = false
           this.cashLeftOne = true
+          gameNs.tableOne.tableFull = false;
+          //gameNs.customer[current].alive = false
+          //gameNs.customerTwo[this.index].alive = false
         }
       }
       if (this.servedTableTwo === true)
@@ -79,9 +84,12 @@ class Dinner
         this.holderTwo = Math.trunc(this.secondsTwo/60)
         if (this.holderTwo > 5)
         {
+          var current = this.index;
           this.alive = false;
           this.servedTableTwo = false
           this.cashLeftTwo = true
+          //gameNs.customer[current].alive = false
+          //gameNs.customerTwo[this.index].alive = false
         }
       }
       if (this.servedTableThree === true)
@@ -93,6 +101,8 @@ class Dinner
           this.alive = false;
           this.servedTableThree = false
           this.cashLeftThree = true
+          //gameNs.customer[this.index].alive = false
+          //gameNs.customerTwo[this.index].alive = false
         }
       }
       if (this.servedTableFour === true)
@@ -104,6 +114,8 @@ class Dinner
           this.alive = false;
           this.servedTableFour = false
           this.cashLeftFour = true
+          //gameNs.customer[this.index].alive = false
+          //gameNs.customerTwo[this.index].alive = false
         }
       }
 
@@ -123,7 +135,7 @@ class Dinner
        this.collected = true;
 
      }
-    if(this.collected === true && gameNs.player.atTableOne === true && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+    if(gameNs.tableOne.tableFull && this.collected && gameNs.player.atTableOne && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
     {
        this.newPosX = gameNs.tableOne.x
        this.newPosY = gameNs.tableOne.y
@@ -164,6 +176,8 @@ class Dinner
     {
       gameNs.player.score += 50
       this.cashLeftOne = false;
+       //gameNs.tableOne.tableFull = false
+
     }
     if (this.cashLeftTwo && gameNs.player.atTableTwo &&  gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
     {
@@ -230,6 +244,12 @@ class Dinner
    {
        this.x = this.newPosX + 100
        this.y = this.newPosY - 20
+   }
+
+   retrieveIndex(index)
+   {
+     this.index = index
+     console.log(this.index)
    }
 
  }
