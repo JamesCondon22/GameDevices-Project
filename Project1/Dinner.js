@@ -10,25 +10,41 @@ class Dinner
    * This is the constructor for the scene class
    * This sets the title to the scene
    */
-   constructor(xpos,ypos,width,height)
+   constructor(xpos,ypos,width,height,load)
    {
       this.x = xpos;
       this.y = ypos;
       this.width = width;
       this.height = height;
       this.imgPasta = new Image();
-      this.imgPasta.src = "resources/dinnerDish.png";
+      this.imgPasta.src = load['SpagImg'];
       this.imgPizza = new Image();
-      this.imgPizza.src = "resources/Pizza.png";
+      this.imgPizza.src = load['PizzaImg'];
       this.imgLasagna = new Image();
-      this.imgLasagna.src = "resources/Lasagna.png";
-      document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
-      document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
+      this.imgLasagna.src = load['LasagneImg'];
+      this.imgMoney = new Image()
+      this.imgMoney.src = load['MoneyImg']
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
       this.collected = false;
-      this.served = false
+      this.servedTableOne = false
+      this.servedTableTwo = false
+      this.servedTableThree = false
+      this.servedTableFour = false
+      this.alive = true
+      this.cashLeftOne = false
+      this.cashLeftTwo = false
+      this.cashLeftThree = false
+      this.cashLeftFour = false
       this.newPosX = 0
       this.newPosY = 0
+      this.secondsOne = 0
+      this.holderOne = 0
+      this.secondsTwo = 0
+      this.holderTwo = 0
+      this.secondsThree = 0
+      this.holderThree = 0
+      this.secondsFour = 0
+      this.holderFour = 0
       var rndNum;
       this.rndNum = Math.floor(Math.random()*3);
 
@@ -43,17 +59,54 @@ class Dinner
    {
       if (this.collected === true)
       {
-        this.x = gameNs.player.x;
-        this.y = gameNs.player.y;
+        this.x = gameNs.player.x + 30;
+        this.y = gameNs.player.y + 130;
         gameNs.game.foodCollected = true;
       }
-      if (this.served === true)
+      if (this.servedTableOne === true)
       {
-        this.x = this.newPosX
-        this.y = this.newPosY
-
+        this.secondsOne = this.secondsOne + 1;
+        this.holderOne = Math.trunc(this.secondsOne/60)
+        if (this.holderOne > 5)
+        {
+          this.alive = false;
+          this.servedTableOne = false
+          this.cashLeftOne = true
+        }
       }
-      //console.log(gameNs.player.atTable)
+      if (this.servedTableTwo === true)
+      {
+        this.secondsTwo = this.secondsTwo + 1;
+        this.holderTwo = Math.trunc(this.secondsTwo/60)
+        if (this.holderTwo > 5)
+        {
+          this.alive = false;
+          this.servedTableTwo = false
+          this.cashLeftTwo = true
+        }
+      }
+      if (this.servedTableThree === true)
+      {
+        this.secondsThree = this.secondsThree + 1;
+        this.holderThree = Math.trunc(this.secondsThree/60)
+        if (this.holderThree > 5)
+        {
+          this.alive = false;
+          this.servedTableThree = false
+          this.cashLeftThree = true
+        }
+      }
+      if (this.servedTableFour === true)
+      {
+        this.secondsFour = this.secondsFour + 1;
+        this.holderFour = Math.trunc(this.secondsFour/60)
+        if (this.holderFour > 5)
+        {
+          this.alive = false;
+          this.servedTableFour = false
+          this.cashLeftFour = true
+        }
+      }
 
    }
    detectHit(x1,y1,x2,y2,w,h)
@@ -64,64 +117,73 @@ class Dinner
      return true;
    }
 
-   onTouchStart(e)
-   {
-     this.touches = e.touches;
-
-
-     this.startX = this.touches[0].clientX;
-     this.startY = this.touches[0].clientY;
-   }
-   onTouchMove(e)
-   {
- 	   this.touches = e.changedTouches;
- 	   this.endX = this.touches[0].clientX;
- 	   this.endY = this.touches[0].clientY;
-
-     this.startX = this.touches[0].clientX;
- 	   this.startY = this.touches[0].clientY;
-   }
    onTouchEnd(e)
    {
      if (gameNs.player.atService === true && this.checkCollisionBetween(gameNs.player.currentX, gameNs.player.currentY, 30, 30))
      {
        this.collected = true;
+
      }
     if(this.collected === true && gameNs.player.atTableOne === true && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
     {
        this.newPosX = gameNs.tableOne.x
        this.newPosY = gameNs.tableOne.y
-       //console.log("hit")
        this.collected = false
-       this.served = true
+       this.servedTableOne = true
+       this.placeDinner()
+       gameNs.soundManager.playSound('served', false, 0.5);
     }
     if(this.collected === true && gameNs.player.atTableTwo === true && gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
     {
        this.newPosX = gameNs.tableTwo.x
        this.newPosY = gameNs.tableTwo.y
-       //console.log("hit")
        this.collected = false
-       this.served = true
+       this.servedTableTwo = true
+       this.placeDinner()
+       gameNs.soundManager.playSound('served', false, 0.5);
     }
     if(this.collected === true && gameNs.player.atTableThree === true && gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, gameNs.startX, gameNs.startY, gameNs.tableThree.width, gameNs.tableThree.height))
     {
        this.newPosX = gameNs.tableThree.x
        this.newPosY = gameNs.tableThree.y
-       //console.log("hit")
        this.collected = false
-       this.served = true
+       this.servedTableThree = true
+       this.placeDinner()
+       gameNs.soundManager.playSound('served', false, 0.5);
     }
     if(this.collected === true && gameNs.player.atTableFour === true && gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, gameNs.startX, gameNs.startY, gameNs.tableFour.width, gameNs.tableFour.height))
     {
        this.newPosX = gameNs.tableFour.x
        this.newPosY = gameNs.tableFour.y
-       //console.log("hit")
        this.collected = false
-       this.served = true
+       this.servedTableFour = true
+       this.placeDinner()
+       gameNs.soundManager.playSound('served', false, 0.5);
     }
 
- 	   this.endX = this.touches[0].clientX;
-  	 this.endY = this.touches[0].clientY;
+    if (this.cashLeftOne && gameNs.player.atTableOne &&  gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+    {
+      gameNs.player.score += 50
+      this.cashLeftOne = false;
+    }
+    if (this.cashLeftTwo && gameNs.player.atTableTwo &&  gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
+    {
+      gameNs.player.score += 50
+      this.cashLeftTwo = false;
+    }
+    if (this.cashLeftThree && gameNs.player.atTableThree &&  gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, gameNs.startX, gameNs.startY, gameNs.tableThree.width, gameNs.tableThree.height))
+    {
+      gameNs.player.score += 50
+      this.cashLeftThree = false;
+    }
+    if (this.cashLeftFour && gameNs.player.atTableFour &&  gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, gameNs.startX, gameNs.startY, gameNs.tableFour.width, gameNs.tableFour.height))
+    {
+      gameNs.player.score += 50
+      this.cashLeftFour = false;
+    }
+
+ 	   this.endX = e.touches.clientX;
+  	 this.endY = e.touches.clientY;
    }
 
    checkCollisionBetween(x,y,width,height)
@@ -144,15 +206,30 @@ class Dinner
      var ctx = canvas.getContext('2d');
      if (this.rndNum === 0 )
      {
+       if (this.alive)
        ctx.drawImage(this.imgPasta, this.x, this.y, this.width, this.height);
      }
      if (this.rndNum ===1 )
      {
+        if (this.alive)
        ctx.drawImage(this.imgPizza, this.x, this.y, this.width, this.height);
      }
      if (this.rndNum === 2 )
      {
+        if (this.alive)
        ctx.drawImage(this.imgLasagna, this.x, this.y, this.width, this.height);
      }
+     if (this.cashLeftOne || this.cashLeftTwo || this.cashLeftThree || this.cashLeftFour)
+     {
+       ctx.drawImage(this.imgMoney, this.x, this.y, this.width, this.height);
+
+     }
    }
+
+   placeDinner()
+   {
+       this.x = this.newPosX + 100
+       this.y = this.newPosY - 20
+   }
+
  }

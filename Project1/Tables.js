@@ -10,14 +10,14 @@ class Table
    * This is the constructor for the scene class
    * This sets the title to the scene
    */
-   constructor(xpos,ypos,width,height)
+   constructor(xpos,ypos,width,height, image)
    {
       this.x = xpos;
       this.y = ypos;
       this.width = width;
       this.height = height;
       this.img = new Image();
-      this.img.src = "resources/new_table.png"
+      this.img.src = image
       this.seat = [2]
       this.seat[0] = new Seat(this.x - 90, this.y, 100,120)
       this.seat[1] = new Seat(this.x + this.width - 20, this.y, 100,120)

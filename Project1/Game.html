@@ -5,8 +5,21 @@
 	<title>DinerDisaster</title>
 	<link rel="stylesheet" href="empty.css" />
 </head>
+<body>
+	<script>
+	var requestURL = 'http://149.153.106.129:8000/levelLoad.json';
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'json';
+	request.send();
 
-<body onload=main()>
+	request.onload = function()
+	{
+		var load = request.response;
+
+		main(load);
+	}
+	</script>
 	<script src="Player.js"></script>
 	<script src="Scene.js"></script>
 	<script src="Main.js"></script>

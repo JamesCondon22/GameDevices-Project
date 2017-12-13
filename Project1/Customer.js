@@ -18,6 +18,7 @@ class Customer
       this.height = height;
       this.touched = false
       this.img = new Image();
+      this.alive = true;
       this.img.src = "resources/waiter.png"
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
@@ -41,38 +42,49 @@ class Customer
    {
      if (this.checkCollision(gameNs.tableOne))
      {
+         if (!gameNs.tableOne.tableFull)
+         {
          this.seatAtOne(gameNs.tableOne.seat[0])
          gameNs.tableOne.seatOneFull = true
-         this.seatedFirst = true
-         gameNs.game.movedCustomer = true
+         this.seatedFirst = true}
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
+       if (!gameNs.tableTwo.tableFull)
+       {
          this.seatAtOne(gameNs.tableTwo.seat[0])
          gameNs.tableTwo.seatOneFull = true
          this.seatedFirst = true
-         gameNs.game.movedCustomer = true
+       }
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
+       if (!gameNs.tableThree.tableFull)
+       {
          this.seatAtOne(gameNs.tableThree.seat[0])
          gameNs.tableThree.seatOneFull = true
          this.seatedFirst = true
-         gameNs.game.movedCustomer = true
+       }
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
+       if (!gameNs.tableFour.tableFull)
+       {
          this.seatAtOne(gameNs.tableFour.seat[0])
          gameNs.tableFour.seatOneFull = true
          this.seatedFirst = true
-         gameNs.game.movedCustomer = true
+       }
      }
-     else if (!this.checkCollision(gameNs.tableOne) && this.touching == false)
 
-     {
-       this.px = 500
-       this.py = 1000
-     }
+     else if (!this.checkCollision(gameNs.tableOne) && this.touching === false ||
+        !this.checkCollision(gameNs.tableTwo) && this.touching === false ||
+        !this.checkCollision(gameNs.tableThree) && this.touching === false ||
+        !this.checkCollision(gameNs.tableFour) && this.touching === false)
+        {
+          this.px = 500
+          this.py = 1000
+        }
+
      //console.log(this.touching)
    }
    detectHit(x1,y1,x2,y2,w,h)
@@ -97,7 +109,7 @@ class Customer
  	   this.endY = this.touches[0].clientY;
      if(this.detectHit(this.px, this.py, this.startX, this.startY, this.width, this.height) && !this.seatedFirst)
      {
-       console.log("collide")
+       //console.log("collide")
         this.px = this.endX - 75;
         this.py = this.endY - 50;
         this.touching = true
@@ -137,6 +149,7 @@ class Customer
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
+     if (this.alive)
      ctx.drawImage(this.img,this.px, this.py, this.width,this.height);
 
    }

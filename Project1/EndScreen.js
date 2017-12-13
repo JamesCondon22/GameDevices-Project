@@ -12,7 +12,7 @@ class EndScreen
   * @param {title} string title of the MenuScene.
   * This construcor uses the keyword super to inherit from the Scene class
   */
-  constructor(title)
+  constructor(title, load)
   {
     this.title = title
     gameNs.playing = false;
