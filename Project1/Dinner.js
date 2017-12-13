@@ -67,44 +67,52 @@ class Dinner
       {
         this.secondsOne = this.secondsOne + 1;
         this.holderOne = Math.trunc(this.secondsOne/60)
+        gameNs.game.foodAtTable = true
         if (this.holderOne > 5)
         {
           this.alive = false;
           this.servedTableOne = false
           this.cashLeftOne = true
+          gameNs.game.collectMoney = true;
         }
       }
       if (this.servedTableTwo === true)
       {
         this.secondsTwo = this.secondsTwo + 1;
         this.holderTwo = Math.trunc(this.secondsTwo/60)
+        gameNs.game.foodAtTable = true
         if (this.holderTwo > 5)
         {
           this.alive = false;
           this.servedTableTwo = false
           this.cashLeftTwo = true
+          gameNs.game.collectMoney = true;
         }
       }
       if (this.servedTableThree === true)
       {
         this.secondsThree = this.secondsThree + 1;
         this.holderThree = Math.trunc(this.secondsThree/60)
+        gameNs.game.foodAtTable = true
         if (this.holderThree > 5)
         {
           this.alive = false;
           this.servedTableThree = false
           this.cashLeftThree = true
+          gameNs.game.collectMoney = true;
         }
       }
       if (this.servedTableFour === true)
       {
         this.secondsFour = this.secondsFour + 1;
         this.holderFour = Math.trunc(this.secondsFour/60)
+        gameNs.game.foodAtTable = true
         if (this.holderFour > 5)
         {
           this.alive = false;
           this.servedTableFour = false
           this.cashLeftFour = true
+          gameNs.game.collectMoney = true;
         }
       }
 
@@ -130,6 +138,7 @@ class Dinner
        this.newPosY = gameNs.tableOne.y
        this.collected = false
        this.servedTableOne = true
+       gameNs.game.foodAtTable = true
        this.placeDinner()
        gameNs.soundManager.playSound('served', false, 0.5);
     }
@@ -139,6 +148,7 @@ class Dinner
        this.newPosY = gameNs.tableTwo.y
        this.collected = false
        this.servedTableTwo = true
+       gameNs.game.foodAtTable = true
        this.placeDinner()
        gameNs.soundManager.playSound('served', false, 0.5);
     }
@@ -148,6 +158,7 @@ class Dinner
        this.newPosY = gameNs.tableThree.y
        this.collected = false
        this.servedTableThree = true
+       gameNs.game.foodAtTable = true
        this.placeDinner()
        gameNs.soundManager.playSound('served', false, 0.5);
     }
@@ -157,6 +168,7 @@ class Dinner
        this.newPosY = gameNs.tableFour.y
        this.collected = false
        this.servedTableFour = true
+       gameNs.game.foodAtTable = true
        this.placeDinner()
        gameNs.soundManager.playSound('served', false, 0.5);
     }
@@ -165,21 +177,25 @@ class Dinner
     {
       gameNs.player.score += 50
       this.cashLeftOne = false;
+      gameNs.game.moneyCollected = true;
     }
     if (this.cashLeftTwo && gameNs.player.atTableTwo &&  gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
     {
       gameNs.player.score += 50
       this.cashLeftTwo = false;
+      gameNs.game.moneyCollected = true;
     }
     if (this.cashLeftThree && gameNs.player.atTableThree &&  gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, gameNs.startX, gameNs.startY, gameNs.tableThree.width, gameNs.tableThree.height))
     {
       gameNs.player.score += 50
       this.cashLeftThree = false;
+      gameNs.game.moneyCollected = true;
     }
     if (this.cashLeftFour && gameNs.player.atTableFour &&  gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, gameNs.startX, gameNs.startY, gameNs.tableFour.width, gameNs.tableFour.height))
     {
       gameNs.player.score += 50
       this.cashLeftFour = false;
+      gameNs.game.moneyCollected = true;
     }
 
  	   this.endX = e.touches.clientX;
