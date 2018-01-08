@@ -11,5 +11,8 @@
   "MoneyImg" : "resources/money.png",
   "LasagneImg" : "resources/Lasagna.png",
   "SpagImg" : "resources/dinnerDish.png",
-  "PizzaImg" : "resources/Pizza.png"
+  "PizzaImg" : "resources/Pizza.png",
+  "BackImg" : "resources/backbtn.png",
+  "LeftArrowImg" : "resources/leftarrow.png",
+  "RightArrowImg" : "resources/rightarrow.png"
 }

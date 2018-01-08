@@ -21,11 +21,74 @@ class MenuScene
     this.imgOptions.src = load['OptionBtn']
     this.imgExit = new Image();
     this.imgExit.src = load['ExitBtn']
-
+    this.playY = 200
+    this.optionsY = 650
+    this.exitY = 1100
+    this.x = 70
   }
 
 
+  update()
+  {
+    if (this.checkCollisionBetween(gameNs.player.currentX, gameNs.player.currentY, 10,10))
+    {
+      gameNs.sceneManager.goToScene('Game Scene')
+      gameNs.sceneManager.render()
+      console.log("touched")
+    }
+    if (this.checkCollisionBetweenOptions(gameNs.player.currentX, gameNs.player.currentY, 10,10))
+    {
+      gameNs.sceneManager.goToScene('Options')
+      gameNs.sceneManager.render()
+      console.log("touched")
+    }
+    if (this.checkCollisionBetweenExit(gameNs.player.currentX, gameNs.player.currentY, 10,10))
+    {
+      gameNs.sceneManager.goToScene('Game Scene')
+      gameNs.sceneManager.render()
+      console.log("touched")
+    }
+  }
 
+  checkCollisionBetween(x,y,width,height)
+  {
+   var collides = false;
+
+   if ((this.x < x + width) &&
+       (this.x + this.width > x) &&
+       (this.playY + this.height > y) &&
+       (this.playY < y + height))
+   {
+     collides = true;
+   }
+   return collides;
+ }
+ checkCollisionBetweenOptions(x,y,width,height)
+ {
+  var collides = false;
+
+  if ((this.x < x + width) &&
+      (this.x + this.width > x) &&
+      (this.optionsY + this.height > y) &&
+      (this.optionsY < y + height))
+  {
+    collides = true;
+  }
+  return collides;
+}
+checkCollisionBetweenExit(x,y,width,height)
+{
+ var collides = false;
+
+ if ((this.x < x + width) &&
+     (this.x + this.width > x) &&
+     (this.exitY + this.height > y) &&
+     (this.exitY < y + height))
+ {
+   collides = true;
+ }
+ return collides;
+}
 
 /**
   * creates a canvas and context
@@ -39,9 +102,9 @@ class MenuScene
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
     document.body.style.background = "#0C8100";
     ctx.font = '35px Corbel';
-    ctx.drawImage(this.imgPlay, 70, 50, this.width, this.height);
-    ctx.drawImage(this.imgOptions, 70, 500, this.width, this.height);
-    ctx.drawImage(this.imgExit, 70, 950, this.width, this.height);
+    ctx.drawImage(this.imgPlay, 70, this.playY, this.width, this.height);
+    ctx.drawImage(this.imgOptions, 70, this.optionsY, this.width, this.height);
+    ctx.drawImage(this.imgExit, 70, this.exitY, this.width, this.height);
     //document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
     //this.collisionPlay();
   }

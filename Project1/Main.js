@@ -19,6 +19,7 @@ function main(load)
   var main = new MenuScene('Main Scene',800,400, load);
   var game = new GameScene('Game Scene', load);
   var endScene = new EndScreen("Service is over",load)
+  var options = new Options("Options",load)
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -27,11 +28,13 @@ function main(load)
   gameNs.playing = false
   gameNs.main = main
   gameNs.game = game;
+  gameNs.options = options
 
   gameNs.soundManager = new SoundManager()
   sceneManager.addScene(titlescene);
   sceneManager.addScene(main);
   sceneManager.addScene(game);
+  sceneManager.addScene(options)
   sceneManager.addScene(endScene);
   sceneManager.goToScene(titlescene.title);
   document.addEventListener("click", clickHandler.bind(null, sceneManager));
@@ -45,10 +48,10 @@ function main(load)
   gameNs.soundManager.loadSoundFile('ding', "resources/ding.mp3")
   gameNs.soundManager.loadSoundFile('served', "resources/served.mp3")
   gameNs.game.initWorld();
-  var seconds = 0;
-  var holder = 0;
+  gameNs.customerSeconds = 0
+  gameNs.newHolder = 0
   draw(titlescene, main, game, endScene, sceneManager);
-  update(sceneManager, seconds, holder);
+  update(sceneManager);
 }
 /**
  * Initialises the canvas - the drawing surface. The canvas
@@ -74,19 +77,36 @@ function initCanvas()
 
 }
 
-function update(sceneManager,seconds,holder)
+function update(sceneManager)
 {
+  gameNs.customerSeconds = gameNs.customerSeconds + 1;
+  gameNs.newHolder = Math.trunc(gameNs.customerSeconds/60)
 
   if (gameNs.sceneManager.getScene() === "Game Scene" && gameNs.game.winner === false)
   {
     gameNs.game.update()
     gameNs.playing = true
   }
+
+  if (gameNs.sceneManager.getScene() === "Main Scene")
+  {
+    gameNs.main.update()
+  }
+
+  if (gameNs.sceneManager.getScene() === "Options")
+  {
+    gameNs.options.update()
+  }
   if (gameNs.game.winner === true && gameNs.sceneManager.getScene() === "Game Scene")
   {
     gameNs.sceneManager.goToNextScene()
     gameNs.sceneManager.render();
 
+  }
+  if (gameNs.newHolder > 3 && gameNs.sceneManager.getScene() === "Time to get to work!")
+  {
+    gameNs.sceneManager.goToNextScene()
+    gameNs.sceneManager.render();
   }
 
   //console.log(gameNs.playing)
@@ -119,10 +139,10 @@ function changeScene(e)
   */
 function clickHandler(sceneManager, e)
 {
-  if (gameNs.playing === false)
-  {
-    sceneManager.goToNextScene()
-    sceneManager.render();
-  }
+  //if (gameNs.playing === false)
+  //{
+    //sceneManager.goToNextScene()
+    //sceneManager.render();
+  //}
 
 }

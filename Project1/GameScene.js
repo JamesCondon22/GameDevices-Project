@@ -41,9 +41,9 @@ class GameScene
     gameNs.playing = true;
 
 
-    var seconds;
-    var minutes;
-    var secHolder
+    //var seconds;
+    //var minutes;
+    //var secHolder
 
     //Tutorial variables
     this.movedPlayer = false;
@@ -110,7 +110,7 @@ class GameScene
 
       //gameNs.sceneManager.goToScene("Service is over");
 
-    
+
     for (var i = 0; i < this.noOfCustomers; i++)
     {
         gameNs.customer[i].update(this.noOfCustomers)
