@@ -20,13 +20,25 @@ class Options
     this.imgLeft.src = load['LeftArrowImg']
     this.imgRight = new Image();
     this.imgRight.src = load['RightArrowImg']
+    this.imgInstruct = new Image();
+    this.imgInstruct.src = load['InstructionsImg']
+    this.instructX = 100
+    this.instructY = 700
     this.x = 650
     this.y = 10
     this.leftX = 100
     this.arrowY = 400
-    this.rightX = 400
+    this.rightX = 450
+    this.pressed = false
+    document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
   }
-
+  onTouchEnd(e)
+  {
+     var touches = e.touches
+	   this.endX = touches.clientX;
+ 	   this.endY = touches.clientY;
+    this.pressed = false
+  }
   update()
   {
     if (this.checkCollisionBetween(gameNs.player.currentX, gameNs.player.currentY, 10,10))
@@ -35,18 +47,31 @@ class Options
       gameNs.sceneManager.render()
 
     }
-    if (this.checkCollisionBetweenLeft(gameNs.player.currentX, gameNs.player.currentY, 10,10))
+
+    if (this.checkCollisionBetweenInstruct(gameNs.player.currentX, gameNs.player.currentY, 10,10))
     {
-      //gameNs.sceneManager.goToScene("Main Scene")
-      //gameNs.sceneManager.render()
-      console.log("Left")
+
 
     }
-    if (this.checkCollisionBetweenRight(gameNs.player.currentX, gameNs.player.currentY, 10,10))
+    if (this.checkCollisionBetweenLeft(gameNs.player.currentX, gameNs.player.currentY, 10,10) && this.pressed === false)
     {
-      //gameNs.sceneManager.goToScene("Main Scene")
-      //gameNs.sceneManager.render()
-      console.log("right")
+
+      if (gameNs.volume > 0.1)
+      {
+        gameNs.volume -= .05
+          this.pressed = true
+        console.log(gameNs.volume)
+      }
+    }
+    if (this.checkCollisionBetweenRight(gameNs.player.currentX, gameNs.player.currentY, 10,10) && this.pressed === false)
+    {
+
+      if (gameNs.volume < 0.9)
+      {
+        gameNs.volume += .05
+        this.pressed = true
+        console.log(gameNs.volume)
+      }
     }
     //console.log(gameNs.player.currentX + ", " +  gameNs.player.currentY)
   }
@@ -64,6 +89,20 @@ class Options
    }
    return collides;
  }
+
+ checkCollisionBetweenInstruct(x,y,width,height)
+ {
+  var collides = false;
+
+  if ((this.instructX < x + width) &&
+      (this.instructX + 700 > x) &&
+      (this.instructY + 200 > y) &&
+      (this.instructY < y + height))
+  {
+    collides = true;
+  }
+  return collides;
+}
 
  checkCollisionBetweenLeft(x,y,width,height)
  {
@@ -101,9 +140,11 @@ class Options
     ctx.font = '100px serif'; //48
     //ctx.fillText(this.title, 30, 80);
     //gameNs.scenetitle = this.title;
+    ctx.fillText("Volume", 250,350);
     ctx.drawImage(this.imgBack, this.x, this.y, 280, 180);
     ctx.drawImage(this.imgRight, this.rightX, this.arrowY, 280, 180);
     ctx.drawImage(this.imgLeft, this.leftX, this.arrowY, 280, 180);
+    ctx.drawImage(this.imgInstruct, this.instructX, this.instructY, 700, 200);
 
   }
 

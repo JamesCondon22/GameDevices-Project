@@ -22,14 +22,16 @@ SoundManager.prototype.playSound = function(name, loop, value)
   //retrieve the buffer we stored earlier
   var audioBuffer = this.audioBuffers[name];
 
+	var gain = this.audioContext.createGain()
+	gain.gain.value = value
   //create a buffer source - used to play once and then a new one must be made
   var source = this.audioContext.createBufferSource();
   source.buffer = audioBuffer;
-
 	source.loop = loop;
+	source.connect(gain)
+	gain.connect(this.audioContext.destination)
 
-
-  source.connect(this.audioContext.destination);
+  //source.connect(this.audioContext.destination);
   source.start(0); // Play immediately.
 }
 

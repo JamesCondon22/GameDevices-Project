@@ -15,11 +15,12 @@ var gameNs = {};
 function main(load)
 {
   initCanvas();
-  var titlescene = new TitleScene('Time to get to work!');
+  var titlescene = new TitleScene('Time to get to work!',load);
   var main = new MenuScene('Main Scene',800,400, load);
   var game = new GameScene('Game Scene', load);
   var endScene = new EndScreen("Service is over",load)
   var options = new Options("Options",load)
+  //var instructions = new Instructions("Instuctions", load)
   var sceneManager = new SceneManager();
   gameNs.sceneManager = sceneManager
   gameNs.created = false
@@ -29,7 +30,7 @@ function main(load)
   gameNs.main = main
   gameNs.game = game;
   gameNs.options = options
-
+  gameNs.volume = 0.5
   gameNs.soundManager = new SoundManager()
   sceneManager.addScene(titlescene);
   sceneManager.addScene(main);
@@ -44,7 +45,7 @@ function main(load)
     }
   }, { passive: false } );*/
   gameNs.soundManager.init();
-  gameNs.soundManager.loadSoundFile('background', "resources/background.mp3")
+  gameNs.soundManager.loadSoundFile('background', "resources/background.wav")
   gameNs.soundManager.loadSoundFile('ding', "resources/ding.mp3")
   gameNs.soundManager.loadSoundFile('served', "resources/served.mp3")
   gameNs.game.initWorld();
@@ -99,7 +100,7 @@ function update(sceneManager)
   }
   if (gameNs.game.winner === true && gameNs.sceneManager.getScene() === "Game Scene")
   {
-    gameNs.sceneManager.goToNextScene()
+    gameNs.sceneManager.goToScene("Service is over")
     gameNs.sceneManager.render();
 
   }
