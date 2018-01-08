@@ -235,7 +235,7 @@ class GameScene
           ctx.fillText("Collect food from the service by", 10,785);
           ctx.fillText("touching it", 100,830);
         }
-        if (this.foodCollected === true && this.movedCustomer === true)
+        if (this.foodCollected === true && this.movedCustomer === true && this.collectMoney === false && this.foodAtTable === false)
         {
           if (gameNs.player.atTableOne === false && gameNs.player.atTableTwo === false && gameNs.player.atTableThree === false && gameNs.player.atTableFour === false)
           {
