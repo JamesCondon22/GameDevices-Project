@@ -10,7 +10,7 @@ class Customer
    * This is the constructor for the scene class
    * This sets the title to the scene
    */
-   constructor(xpos,ypos,width,height)
+   constructor(xpos,ypos,width,height, index)
    {
       this.px = xpos;
       this.py = ypos;
@@ -18,12 +18,13 @@ class Customer
       this.height = height;
       this.touched = false
       this.img = new Image();
+      this.index = index
       this.alive = true;
       this.img.src = "resources/waiter.png"
       document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
       document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
   	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
-
+      this.finished = false;
       var seconds;
       var minutes;
       this.seconds = 0;
@@ -44,6 +45,7 @@ class Customer
      {
          if (!gameNs.tableOne.tableFull)
          {
+         gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableOne.seat[0])
          gameNs.tableOne.seatOneFull = true
          this.seatedFirst = true}
@@ -52,6 +54,7 @@ class Customer
      {
        if (!gameNs.tableTwo.tableFull)
        {
+         gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableTwo.seat[0])
          gameNs.tableTwo.seatOneFull = true
          this.seatedFirst = true
@@ -61,6 +64,7 @@ class Customer
      {
        if (!gameNs.tableThree.tableFull)
        {
+         gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableThree.seat[0])
          gameNs.tableThree.seatOneFull = true
          this.seatedFirst = true
@@ -70,6 +74,7 @@ class Customer
      {
        if (!gameNs.tableFour.tableFull)
        {
+         gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableFour.seat[0])
          gameNs.tableFour.seatOneFull = true
          this.seatedFirst = true
@@ -84,6 +89,9 @@ class Customer
           this.px = 500
           this.py = 1000
         }
+
+
+
 
      //console.log(this.touching)
    }
@@ -149,10 +157,12 @@ class Customer
    {
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
-     if (this.alive)
+     if (this.alive === true){
      ctx.drawImage(this.img,this.px, this.py, this.width,this.height);
-
+      }
    }
+
+
 
 
  }

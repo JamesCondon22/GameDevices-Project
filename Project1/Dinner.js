@@ -45,6 +45,7 @@ class Dinner
       this.holderThree = 0
       this.secondsFour = 0
       this.holderFour = 0
+      this.index = 0
       var rndNum;
       this.rndNum = Math.floor(Math.random()*3);
 
@@ -70,10 +71,13 @@ class Dinner
         gameNs.game.foodAtTable = true
         if (this.holderOne > 5)
         {
+          var current = this.index;
           this.alive = false;
           this.servedTableOne = false
           this.cashLeftOne = true
-          gameNs.game.collectMoney = true;
+          gameNs.tableOne.tableFull = false;
+          gameNs.game.collectMoney = true;//gameNs.customer[current].alive = false
+          //gameNs.customerTwo[this.index].alive = false
         }
       }
       if (this.servedTableTwo === true)
@@ -83,6 +87,7 @@ class Dinner
         gameNs.game.foodAtTable = true
         if (this.holderTwo > 5)
         {
+          var current = this.index;
           this.alive = false;
           this.servedTableTwo = false
           this.cashLeftTwo = true
@@ -132,7 +137,7 @@ class Dinner
        this.collected = true;
 
      }
-    if(this.collected === true && gameNs.player.atTableOne === true && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
+    if(gameNs.tableOne.tableFull && this.collected && gameNs.player.atTableOne && gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))
     {
        this.newPosX = gameNs.tableOne.x
        this.newPosY = gameNs.tableOne.y
@@ -246,6 +251,12 @@ class Dinner
    {
        this.x = this.newPosX + 100
        this.y = this.newPosY - 20
+   }
+
+   retrieveIndex(index)
+   {
+     this.index = index
+     console.log(this.index)
    }
 
  }

@@ -19,12 +19,13 @@ class GameScene
     this.load = load
     this.dinnerIndex = 1
     this.count = 2
+    this.winner = false
     gameNs.player = new Player(500,450, 100,180, load['TrumpImg']);
     this.noOfCustomers = 1
     this.noOfdinners = 2
     gameNs.customer = [this.noOfCustomers]
     gameNs.customerTwo = [this.noOfCustomers]
-    gameNs.customer[0] = new Customer(500,1000,100,180)
+    gameNs.customer[0] = new Customer(500,1000,100,180, this.index)
     gameNs.customerTwo[0] = new CustomerTwo(400,1000,100,180)
     gameNs.dinners = [this.noOfdinners]
     gameNs.dinners[0] = new Dinner(125,50,50,50,load)
@@ -36,12 +37,13 @@ class GameScene
     gameNs.tableFour= new Table(650,900,250,90, load['TableImg']);
     gameNs.service = new ServiceTable(50,50,900,150, load['ServiceTableImg']);
     this.background = new Background(0,0,1000,1500)
-    //gameNs.washing = new CleaningTable(600,50,375,100);
+    this.touchCount = 0
     gameNs.playing = true;
-    gameNs.soundManager = new SoundManager()
-    var seconds;
-    var minutes;
-    var secHolder
+
+
+    //var seconds;
+    //var minutes;
+    //var secHolder
 
     //Tutorial variables
     this.movedPlayer = false;
@@ -59,17 +61,20 @@ class GameScene
     document.addEventListener("keydown", this.keyDownHandler.bind(this));
     document.addEventListener("touchstart", this.onTouchStart.bind(this), false);
     document.addEventListener("touchmove", this.onTouchMove.bind(this), false);
-	  document.addEventListener("touchend", this.onTouchEnd, false);
+	  document.addEventListener("touchend", this.onTouchEnd.bind(this), false);
     this.update = this.update.bind(this);
     this.seconds = 0;
     this.customerSeconds = 0
     this.newHolder = 0
     this.minutes = 0;
     this.secHolder = 0;
+    this.scoreHolder = 0
+    this.scoreSeconds = 0
     gameNs.previousTime = Date.now();
-    gameNs.soundManager.init();
-    gameNs.soundManager.loadSoundFile('ding', "resources/ding.mp3")
-    gameNs.soundManager.loadSoundFile('served', "resources/served.mp3")
+
+
+
+
   }
 
   update()
@@ -78,10 +83,13 @@ class GameScene
 		var ctx = canvas.getContext('2d');
     this.customerSeconds = this.customerSeconds + 1;
     this.newHolder = Math.trunc(this.customerSeconds/60)
+    this.scoreSeconds = this.scoreSeconds + 1;
+    this.scoreHolder = Math.trunc(this.scoreSeconds/60)
     if (gameNs.player.move === true){
       gameNs.player.movePlayer()
       //console.log("moving")
     }
+
     //console.log(gameNs.player.move)
     var now = Date.now();
     var dt = (now - gameNs.previousTime);
@@ -100,14 +108,22 @@ class GameScene
       this.insertDinner()
     }
 
+      //gameNs.sceneManager.goToScene("Service is over");
+
 
     for (var i = 0; i < this.noOfCustomers; i++)
     {
         gameNs.customer[i].update(this.noOfCustomers)
+
+
+
+
     }
     for (var i = 0; i < this.noOfCustomers; i++)
     {
+
         gameNs.customerTwo[i].update(this.noOfCustomers)
+
     }
 
     //The dinners arrray update
@@ -147,6 +163,18 @@ class GameScene
       this.movedCustomer = true
 
     }
+    //console.log(this.scoreHolder)
+    if (gameNs.player.score === 400)
+    {
+      gameNs.player.score = (gameNs.player.score) / this.scoreHolder * 100
+      gameNs.player.score = this.round(gameNs.player.score, 0)
+      //console.log(gameNs.player.score)
+      gameNs.playing = false
+      this.winner = true
+
+    }
+
+  //  if (gameNs.dinner[0].cashLeftOne)
   }
 /**
   * creates a canvas and context
@@ -183,10 +211,14 @@ class GameScene
       gameNs.customerTwo[i].render()
     }
 
+
     ctx.font = '55px Arial';
     ctx.fillText(this.minutes + ":",10,50)
     ctx.fillText(this.secHolder, 60, 50);
-    ctx.fillText(" / 2:00", 110, 50);
+    ctx.fillText("Score: " + gameNs.player.score, 500, 50);
+
+    //gameNs.scenetitle = this.title;
+
 
     if (this.tutorialOver === false)
     {
@@ -240,6 +272,9 @@ class GameScene
           ctx.fillText("Begin!!", 820,50);
       }
   }
+  round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  }
 
   keyDownHandler(e)
   {
@@ -251,7 +286,7 @@ class GameScene
   onTouchStart(e)
   {
 	   this.touches = e.touches;
-
+    //gameNs.soundManager.playSound('background', false, 0.5);
 	   this.startX = this.touches[0].clientX;
 	   this.startY = this.touches[0].clientY;
      if(gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, this.startX, this.startY, gameNs.tableOne.width, gameNs.tableOne.height))
@@ -307,6 +342,9 @@ class GameScene
      var touches = e.touches
 	   this.endX = touches.clientX;
  	   this.endY = touches.clientY;
+     this.touchCount += 1
+     if (this.touchCount === 1)
+     gameNs.soundManager.playSound('background', true, 0.5);
   }
 
   /**
@@ -334,7 +372,7 @@ class GameScene
    insertCustomer()
    {
      this.index+=1;
-     gameNs.customer[this.index] = new Customer(500,1000,100,180)
+     gameNs.customer[this.index] = new Customer(500,1000,100,180, this.index)
      gameNs.customerTwo[this.index] = new CustomerTwo(400,1000,100,180)
      this.noOfCustomers+= 1;
      this.newHolder = 0;

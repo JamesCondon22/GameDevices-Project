@@ -3,7 +3,7 @@
   "StoolImg" : "resources/stool.png",
   "TableImg" : "resources/new_table.png",
   "ServiceTableImg" : "resources/service_table.png",
-  "MuteBtn" : "resources/buttonMute.png",
+  "OptionBtn" : "resources/buttonOptions.png",
   "ExitBtn" : "resources/buttonExit.png",
   "PlayBtn" : "resources/buttonPlay.png",
   "FatTonyImg" : "resources/FatTony.png",
@@ -11,5 +11,8 @@
   "MoneyImg" : "resources/money.png",
   "LasagneImg" : "resources/Lasagna.png",
   "SpagImg" : "resources/dinnerDish.png",
-  "PizzaImg" : "resources/Pizza.png"
+  "PizzaImg" : "resources/Pizza.png",
+  "BackImg" : "resources/backbtn.png",
+  "LeftArrowImg" : "resources/leftarrow.png",
+  "RightArrowImg" : "resources/rightarrow.png"
 }
