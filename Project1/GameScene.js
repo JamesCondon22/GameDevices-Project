@@ -19,6 +19,8 @@ class GameScene
     this.load = load
     this.dinnerIndex = 1
     this.count = 2
+    this.reset = false
+    //this.volume = 0.5
     this.winner = false
     gameNs.player = new Player(500,450, 100,180, load['TrumpImg']);
     this.noOfCustomers = 1
@@ -111,9 +113,12 @@ class GameScene
       //gameNs.sceneManager.goToScene("Service is over");
 
 
-    for (var i = 0; i < this.noOfCustomers; i++)
+    for (var i = 0; i < this.noOfCustomers; i++ )
     {
+      if (gameNs.customer[i].alive === true)
+      {
         gameNs.customer[i].update(this.noOfCustomers)
+      }
 
 
 
@@ -121,9 +126,10 @@ class GameScene
     }
     for (var i = 0; i < this.noOfCustomers; i++)
     {
-
+      if (gameNs.customer[i].alive === true)
+      {
         gameNs.customerTwo[i].update(this.noOfCustomers)
-
+      }
     }
 
     //The dinners arrray update
@@ -191,9 +197,13 @@ class GameScene
 
     this.background.render();
     gameNs.tableOne.render();
-    gameNs.tableTwo.render();
-    gameNs.tableThree.render();
-    gameNs.tableFour.render();
+    if (this.tutorialOver === true)
+    {
+      gameNs.tableTwo.render();
+      gameNs.tableThree.render();
+      gameNs.tableFour.render();
+    }
+
 
     gameNs.service.render();
     //gameNs.washing.render();
@@ -267,9 +277,19 @@ class GameScene
         }
       }
 
-      if (this.tutorialOver === true)
+      if (this.tutorialOver === true && this.reset === false)
       {
           ctx.fillText("Begin!!", 820,50);
+          gameNs.customer[0].alive = false
+          gameNs.customerTwo[0].alive = false
+
+          gameNs.tableOne.tableFull = false
+          gameNs.servedTableOne = false
+          gameNs.tableOne.seatOneFull = false;
+          gameNs.tableOne.seatTwoFull = false;
+          gameNs.player.score = 0
+        //  gameNs..cashLeftOne = true
+         this.reset = true
       }
   }
   round(value, decimals) {
@@ -344,7 +364,7 @@ class GameScene
  	   this.endY = touches.clientY;
      this.touchCount += 1
      if (this.touchCount === 1)
-     gameNs.soundManager.playSound('background', true, 0.5);
+     gameNs.soundManager.playSound('background', true, gameNs.volume);
   }
 
   /**
@@ -377,7 +397,7 @@ class GameScene
      this.noOfCustomers+= 1;
      this.newHolder = 0;
      this.customerSeconds = 0
-     gameNs.soundManager.playSound('ding', false, 0.5);
+     gameNs.soundManager.playSound('ding', false, gameNs.volume);
    }
 
    insertDinner()

@@ -145,7 +145,7 @@ class Dinner
        this.servedTableOne = true
        gameNs.game.foodAtTable = true
        this.placeDinner()
-       gameNs.soundManager.playSound('served', false, 0.5);
+       gameNs.soundManager.playSound('served', false, gameNs.volume);
     }
     if(this.collected === true && gameNs.player.atTableTwo === true && gameNs.tableTwo.detectHit(gameNs.tableTwo.x, gameNs.tableTwo.y, gameNs.startX, gameNs.startY, gameNs.tableTwo.width, gameNs.tableTwo.height))
     {
@@ -155,7 +155,7 @@ class Dinner
        this.servedTableTwo = true
        gameNs.game.foodAtTable = true
        this.placeDinner()
-       gameNs.soundManager.playSound('served', false, 0.5);
+       gameNs.soundManager.playSound('served', false, gameNs.volume);
     }
     if(this.collected === true && gameNs.player.atTableThree === true && gameNs.tableThree.detectHit(gameNs.tableThree.x, gameNs.tableThree.y, gameNs.startX, gameNs.startY, gameNs.tableThree.width, gameNs.tableThree.height))
     {
@@ -165,7 +165,7 @@ class Dinner
        this.servedTableThree = true
        gameNs.game.foodAtTable = true
        this.placeDinner()
-       gameNs.soundManager.playSound('served', false, 0.5);
+       gameNs.soundManager.playSound('served', false, gameNs.volume);
     }
     if(this.collected === true && gameNs.player.atTableFour === true && gameNs.tableFour.detectHit(gameNs.tableFour.x, gameNs.tableFour.y, gameNs.startX, gameNs.startY, gameNs.tableFour.width, gameNs.tableFour.height))
     {
@@ -175,7 +175,7 @@ class Dinner
        this.servedTableFour = true
        gameNs.game.foodAtTable = true
        this.placeDinner()
-       gameNs.soundManager.playSound('served', false, 0.5);
+       gameNs.soundManager.playSound('served', false, gameNs.volume);
     }
 
     if (this.cashLeftOne && gameNs.player.atTableOne &&  gameNs.tableOne.detectHit(gameNs.tableOne.x, gameNs.tableOne.y, gameNs.startX, gameNs.startY, gameNs.tableOne.width, gameNs.tableOne.height))

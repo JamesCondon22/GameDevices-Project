@@ -14,5 +14,7 @@
   "PizzaImg" : "resources/Pizza.png",
   "BackImg" : "resources/backbtn.png",
   "LeftArrowImg" : "resources/leftarrow.png",
-  "RightArrowImg" : "resources/rightarrow.png"
+  "RightArrowImg" : "resources/rightarrow.png",
+  "backGroundImg" : "resources/background.jpg",
+  "InstructionsImg" : "resources/instructions.png"
 }
