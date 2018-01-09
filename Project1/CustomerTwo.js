@@ -52,7 +52,7 @@ class CustomerTwo
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
-       if (!gameNs.tableTwo.tableFull)
+       if (!gameNs.tableTwo.tableFull && gameNs.game.tutorialOver === true)
        {
          this.seatAtOne(gameNs.tableTwo.seat[1])
          gameNs.tableTwo.seatTwoFull = true
@@ -61,7 +61,7 @@ class CustomerTwo
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
-       if (!gameNs.tableThree.tableFull)
+       if (!gameNs.tableThree.tableFull && gameNs.game.tutorialOver === true)
        {
          this.seatAtOne(gameNs.tableThree.seat[1])
          gameNs.tableThree.seatTwoFull = true
@@ -70,7 +70,7 @@ class CustomerTwo
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
-       if (!gameNs.tableFour.tableFull)
+       if (!gameNs.tableFour.tableFull && gameNs.game.tutorialOver === true)
        {
          this.seatAtOne(gameNs.tableFour.seat[1])
          gameNs.tableFour.seatTwoFull = true

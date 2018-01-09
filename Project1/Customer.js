@@ -52,7 +52,7 @@ class Customer
      }
      else if (this.checkCollision(gameNs.tableTwo))
      {
-       if (!gameNs.tableTwo.tableFull)
+       if (!gameNs.tableTwo.tableFull && gameNs.game.tutorialOver === true)
        {
          gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableTwo.seat[0])
@@ -62,7 +62,7 @@ class Customer
      }
      else if (this.checkCollision(gameNs.tableThree))
      {
-       if (!gameNs.tableThree.tableFull)
+       if (!gameNs.tableThree.tableFull && gameNs.game.tutorialOver === true)
        {
          gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableThree.seat[0])
@@ -72,7 +72,7 @@ class Customer
      }
      else if (this.checkCollision(gameNs.tableFour))
      {
-       if (!gameNs.tableFour.tableFull)
+       if (!gameNs.tableFour.tableFull && gameNs.game.tutorialOver === true)
        {
          gameNs.dinners[0].retrieveIndex(this.index)
          this.seatAtOne(gameNs.tableFour.seat[0])
